@@ -1,3 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap');
+:root {
+    --dark-bg: #1d2021;
+    --bg: #282828;
+    --code-bg: #3c3836;
+    --fg: #ebdbb2;
+    --code-fg: #fbf1c7;
+    --red: #fb4934;
+    --green: #b8bb26;
+    --yellow: #fabd2f;
+    --dark-blue: #458588;
+    --blue: #83a598;
+    --purple: #d3869b;
+    --aqua: #8ec07c;
+    --orange: #fe8019;
+}
+
 html {
-    background: weet;
+    font-family: 'Merriweather', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: var(--dark-bg);
+    padding: 10px;
+}
+
+.logo, .logo:visited {
+    color: var(--dark-blue);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-family: 'Onen Sans', sans-serif;
+    font-size: 20pt;
+
+}
+
+main {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 10px;
+    max-width: 800px;
+}
+
+footer {
+    margin: 0;
+    padding: 20px;
+    height: 150px;
+    background: var(--dark-bg);
+}
+
+a {
+    color: var(--blue);
+}
+a:visited {
+    color: var(--purple);
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    max-width: 80%;
+    max-height: 100%;
+}
+
+video {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    max-width: 80%;
+    max-height: 100%;
+}
+
+code {
+    color: var(--code-fg);
+    background-color: var(--code-bg);
+}
+
+pre {
+    padding: 5px;
+    color: var(--code-fg);
+    background-color: var(--code-bg);
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    padding: 10px;
+    background-color: var(--green);
+    color: var(--bg);
+}
+
+h3 {
+    padding-left: 10px;
+}
+
+@media (max-width: 600px) {
+    img { max-width: 100%; }
+    video { max-width: 100%; }
 }
