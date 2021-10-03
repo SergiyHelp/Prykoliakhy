@@ -65,6 +65,11 @@ a:visited {
     color: var(--purple);
 }
 
+p {
+    text-indent: 4ch;
+    padding: 0 15px;
+}
+
 img {
     display: block;
     margin-left: auto;
@@ -110,7 +115,19 @@ h3 {
     padding-left: 10px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
     img { max-width: 100%; }
     video { max-width: 100%; }
+}
+
+@media print {
+    * {
+        background-color: white;
+        color: black;
+    }
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
 }
