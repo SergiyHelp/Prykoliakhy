@@ -4,15 +4,17 @@
         <meta charset="utf-8"/>
         <title>Example Article</title>
         <link rel="stylesheet" href="style.css">
-        <meta name="author" content="a">
-        <meta name="description" content="Блог зі статтями на різні цікаві теми, часто зв'язані з програмуванням.">
+        <link rel="icon" href="images/icon.svg">
+        <meta name="author" content="serhiy help">
+        <meta name="description" content="
+        Блог зі статтями на різні цікаві теми: програмування, алгоритми, процедурна генерація, математика, геометрія.">
     </head>
     <body>
         <header>
-            <a class="logo" href="index.html">Приколяхи</a>
+            <a href="index.html"><img src="images/icon.svg" height=30px/></a>
         </header>
         <main>
-        <img class="prr" src="images/big-logo.svg" alt="ПРИКОЛЯХИ" />
+        <img class="main-logo" src="images/big-logo.svg" alt="ПРИКОЛЯХИ" />
         <h1>Example article</h1>
         <h2>Subheader</h2>
         <h3>Sub-subheader</h3>
@@ -77,21 +79,23 @@
         since the 1500s, when an unknown printer took a galley of type and
         scrambled it to make a type specimen book.
         </p>
-        <pre><code>var streamReader = new StreamReader("c:\\file.txt");
-try
-{
-    Console.Write(streamReader.ReadToEnd());
-}
-finally
-{
-    if (streamReader != null)
-        streamReader.Dispose();
-}</code></pre>
+        <pre><code><span class="word">func</span> _ready():
+    <span class="word">var</span> nterms = 5
+    <span class="word">print</span>(<span class="string">"Fibonacci #sequence:"</span>)
+    <span class="word">for</span> i <span class="word">in</span> range(nterms):
+        <span class="word">print</span>(FibRecursion(i))
+
+<span class="comment"># this is comment "wow, print"</span>
+<span class="word">func</span> FibRecursion(n):
+   <span class="word">if</span> n <= 1:
+       <span class="word">return</span> n
+   <span class="word">else</span>:
+       <span class="word">return</span>(FibRecursion(n-1) + FibRecursion(n-2))</code></pre>
         <p>
         It has survived not only
         five centuries, but also the leap into electronic typesetting,
         remaining essentially unchanged. It was
-        <code>int i = Math.sin(5);</code>
+        <code><span class="word">var</span> alpha : string = <span class="string">"hello"</span></code>
         popularised in the 1960s with
         the release of Letraset sheets containing Lorem Ipsum passages, and
         more recently with desktop publishing software like Aldus PageMaker
@@ -153,8 +157,23 @@ finally
         </p>
         </main>
         <footer>
-            <address>Serhiy</address>
+            <address>sergiyhelp@gmail.com</address>
             <p>Donate </p>
+            <p>
+                <a href="feed.rss">
+                    <img class="icor" width=15px height=15px src="images/rss.svg"/>RSS
+                </a>
+            </p>
+            <p>
+                <a href="feed.atom">
+                    <img class="icor" width=15px height=15px src="images/rss.svg"/>ATOM
+                </a>
+            </p>
+            <p>
+                <a href="https://t.me/prykoliakhy">
+                    <img class="icor" width=15px height=15px src="images/telegram.svg"/>Telegram
+                </a>
+            </p>
         </footer>
     </body>
 </html>
