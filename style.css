@@ -89,7 +89,7 @@ h2 {
 }
 h3 { padding-left: 10px; }
 
-@media (min-width:480px) {
+@media (max-width:480em) {
     img { max-width: 100%; }
     video { max-width: 100%; }
 }
