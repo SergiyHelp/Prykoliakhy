@@ -57,14 +57,7 @@ p {
     padding: 0 15px;
 }
 
-main img, header a img {
-    display: block;
-    margin: 5px auto;
-    max-width: 80%;
-    max-height: 100%;
-}
-
-video {
+main img, header a img, video {
     display: block;
     margin: 5px auto;
     max-width: 80%;
@@ -90,9 +83,36 @@ h2 {
 }
 h3 { padding-left: 10px; }
 
-@media (max-width:480em) {
-    img { max-width: 100%; }
-    video { max-width: 100%; }
+.cycle {
+    margin: 20px 5ch;
+    font-style: italic;
+}
+
+.next-article {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.next-article a, .next-article a:visited {
+    flex-grow: 2;
+    margin: 5px;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--yellow);
+    color: var(--dark-bg);
+}
+
+@media (max-width: 400px) {
+    p {
+        padding: 0;
+    }
+    main img, video {
+        max-width: 100%;
+    }
+    .next-article {
+        flex-direction: column;
+    }
 }
 
 @media print {
