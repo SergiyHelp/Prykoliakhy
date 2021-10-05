@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head lang="uk">
+        <meta charset="utf-8"/>
+        <title>Алгоритм Еллера</title>
+        <style>
+            :root { --accent: var(--orange); }
+        </style>
+        <link rel="stylesheet" href="/style.css">
+        <link rel="icon" href="/images/icon.svg">
+        <meta name="author" content="serhiy help">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="
+        Блог зі статтями на різні цікаві теми: програмування, алгоритми, процедурна генерація, математика, геометрія.">
+    </head>
+    <body>
+        <header>
+            <a href="index.html"><img src="images/icon.svg" height=30em /></a>
+        </header>
+        <main>
+            <h1>Алгоритм Еллера</h1>
+<h2>Вступ</h2>
+<p>Алгоритм Еллера — це математичний генератор, що дозволяє створювати лабіринти,
+у яких між кожними двома точками існує єдиний шлях, тобто лабіринти не містять
+циклів. У порівнянні з іншими генераторами, цей алгоритм є одним із найшвидших
+та потребує незначну кількість пам'яті — пропорційну довжині рядка лабіринту.
+Потрібно зберігати в пам'яті лише останній створений рядок — це дозволяє
+генерувати лабіринти з необмеженою кількістю рядків.</p>
+<p>Алгоритм являє собою цикл додавання нових рядків. Рядок містить одну і ту саму
+кількість клітинок, яка довільно задається на початку. Клітинки належать до
+множин, що слугують для контролю можливості проходу між клітинками. На момент
+генерації поточного рядка клітини однієї множини з'єднані між собою, водночас
+клітини з різних множин знаходяться в ізольованих між собою частинах лабіринту.
+У кожної клітинки може бути або не бути права та нижня стінка. Загалом, стінки
+генеруються випадковим чином, але при дотриманні певних правил, які гарантують
+відсутність циклів у лабіринті.</p>
+<p><img src="../../images/img.webp" alt="fish" /></p>
+<pre><code class="language-gdscript">prikol dsf
+    dfdsf
+
+ddfsdf
+ddfsdf
+</code></pre>
+
+            <div class="cycle"> Стаття з циклу: <a href="cycles/heneratsіia-labіryntіv"></a> </div>
+<div class="next-article">
+    
+    
+</div>
+
+        </main>
+        <footer>
+            <address>sergiyhelp@gmail.com</address>
+            <p>Підпишись на новини:</p>
+            <p>
+                <a href="feed.rss">
+                    <img class="icor" width=15em height=15em src="images/rss.svg"/>RSS
+                </a>
+            </p>
+            <p>
+                <a href="feed.atom">
+                    <img class="icor" width=15em height=15em src="images/rss.svg"/>ATOM
+                </a>
+            </p>
+            <p>
+                <a href="https://t.me/prykoliakhy">
+                    <img class="icor" width=15em height=15em src="images/telegram.svg"/>Telegram
+                </a>
+            </p>
+            <p>Підтримай автора</p>
+            <p>BTC</p>
+        </footer>
+    </body>
+</html>

@@ -78,7 +78,7 @@ pre {
 h1 { text-align: center; }
 h2 {
     padding: 10px;
-    background-color: var(--green);
+    background-color: var(--accent);
     color: var(--bg);
 }
 h3 { padding-left: 10px; }
@@ -99,7 +99,7 @@ h3 { padding-left: 10px; }
     margin: 5px;
     padding: 10px;
     text-align: center;
-    background-color: var(--yellow);
+    background-color: var(--accent);
     color: var(--dark-bg);
 }
 
