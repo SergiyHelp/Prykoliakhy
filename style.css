@@ -94,7 +94,7 @@ h3 { padding-left: 10px; }
     flex-direction: row;
 }
 
-.next-article a, .next-article a:visited {
+.btn, .btn:visited {
     flex-grow: 2;
     margin: 5px;
     padding: 10px;
@@ -102,6 +102,8 @@ h3 { padding-left: 10px; }
     background-color: var(--accent);
     color: var(--dark-bg);
 }
+
+
 
 @media (max-width: 400px) {
     p {
