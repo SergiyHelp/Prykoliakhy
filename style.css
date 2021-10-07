@@ -113,7 +113,7 @@ h3 { padding-left: 10px; }
     flex-direction: column;
 }
 
-.article-entry .article-entry:visited {
+.article-entry, .article-entry:visited {
     background-color: var(--item-bg);
     padding: 10px 20px;
     margin: 10px 30px;
