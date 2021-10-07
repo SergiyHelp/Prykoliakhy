@@ -88,7 +88,7 @@ h3 { padding-left: 10px; }
     font-style: italic;
 }
 
-.next-article {
+.navigation {
     padding: 10px;
     display: flex;
     flex-direction: row;
@@ -112,7 +112,7 @@ h3 { padding-left: 10px; }
     main img, video {
         max-width: 100%;
     }
-    .next-article {
+    .navigation {
         flex-direction: column;
     }
 }
@@ -125,3 +125,6 @@ h3 { padding-left: 10px; }
     }
 }
 
+.center {
+    text-align: center;
+}
