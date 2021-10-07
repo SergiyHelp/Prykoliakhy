@@ -3,6 +3,7 @@
     --dark-bg: #1d2021;
     --bg: #282828;
     --code-bg: #3c3836;
+    --item-bg: #504945;
     --fg: #ebdbb2;
     --red: #fb4934;
     --green: #b8bb26;
@@ -29,9 +30,13 @@ header {
     align:center;
 }
 .main-logo {
-    margin-top: 100px;
+    margin: 100px 0;
     width: 100%;
     max-width: 100%;
+}
+.center { text-align: center; }
+.description {
+    margin-bottom: 50px;
 }
 
 
@@ -103,7 +108,12 @@ h3 { padding-left: 10px; }
     color: var(--dark-bg);
 }
 
-
+.article-entry {
+    background-color: var(--item-bg);
+    padding: 10px;
+    margin: 5px 20px;
+}
+.article-entry:before { content: ""; }
 
 @media (max-width: 400px) {
     p {
@@ -123,8 +133,4 @@ h3 { padding-left: 10px; }
         color: black;
         text-decoration: none;
     }
-}
-
-.center {
-    text-align: center;
 }
