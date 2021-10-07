@@ -43,7 +43,7 @@ header {
 main {
     margin-left: auto;
     margin-right: auto;
-    padding: 0 10px;
+    padding: 0 10px 20px 10px;
     max-width: 800px;
 }
 
@@ -114,10 +114,11 @@ h3 { padding-left: 10px; }
 }
 
 .article-entry, .article-entry:visited {
-    background-color: var(--item-bg);
-    padding: 10px 20px;
-    margin: 10px 30px;
+    background-color: var(--code-bg);
     color: var(--fg);
+    padding: 10px 20px;
+    margin: 5px 30px;
+    text-decoration: none;
 }
 
 @media (max-width: 400px) {
