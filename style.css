@@ -112,8 +112,8 @@ h3 { padding-left: 10px; }
     background-color: var(--item-bg);
     padding: 10px;
     margin: 5px 20px;
+    list-style-type: none;
 }
-.article-entry:before { content: ""; }
 
 @media (max-width: 400px) {
     p {
