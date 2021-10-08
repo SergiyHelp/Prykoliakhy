@@ -119,8 +119,8 @@ h3 { padding-left: 10px; }
 }
 
 .icon {
-    width: 15em;
-    height: 15em;
+    width: 15px;
+    height: 15px;
 }
 
 @media (max-width: 400px) {
