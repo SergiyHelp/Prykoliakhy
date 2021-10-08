@@ -1,2 +1,62 @@
 <feed xml:lang="uk">
+    <title type="text"> Приколяхи </title>
+    <subtitle type="text"> Блог </subtitle>
+    <updated> 2021-10-07T13:32:54.390+00:00 </updated>
+    <link rel="alternate" type="text/html" href="https://prykoliakhy.v.ua/" />
+    <link rel="self" type="text/html" href="https://prykoliakhy.v.ua/feed.atom"/>
+    <id>https://prykoliakhy.v.ua/feed.atom</id>
+
+    <entry>
+    <title type="text">Шум Перліна</title>
+    <link rel="alternate" type="text" href="https://prykoliakhy.v.ua/articles/shum-perlina.html" />
+    <id>https://prykoliakhy.v.ua/articles/shum-perlina.html</id>
+    <published>2021-10-05T13:46:57.161+00:00</published>
+    <updated>2021-10-05T13:46:57.161+00:00</updated>
+    <autor><name>SerhiyHelp</name></autor>
+    <summary type="html">
+        <p>
+            Вийшла нова стаття <b>Шум Перліна</b> з циклу <b>Генерація ландшафту</b>!
+        </p>
+    </summary>
+</entry>
+<entry>
+    <title type="text">Diamond Square</title>
+    <link rel="alternate" type="text" href="https://prykoliakhy.v.ua/articles/diamond-square.html" />
+    <id>https://prykoliakhy.v.ua/articles/diamond-square.html</id>
+    <published>2021-10-05T13:16:58.111+00:00</published>
+    <updated>2021-10-05T13:16:58.111+00:00</updated>
+    <autor><name>SerhiyHelp</name></autor>
+    <summary type="html">
+        <p>
+            Вийшла нова стаття <b>Diamond Square</b> з циклу <b>Генерація ландшафту</b>!
+        </p>
+    </summary>
+</entry>
+<entry>
+    <title type="text">Тектоніка плит</title>
+    <link rel="alternate" type="text" href="https://prykoliakhy.v.ua/articles/tektonika-plyt.html" />
+    <id>https://prykoliakhy.v.ua/articles/tektonika-plyt.html</id>
+    <published>2021-10-05T13:48:52.671+00:00</published>
+    <updated>2021-10-05T13:48:52.671+00:00</updated>
+    <autor><name>SerhiyHelp</name></autor>
+    <summary type="html">
+        <p>
+            Вийшла нова стаття <b>Тектоніка плит</b> з циклу <b>Генерація ландшафту</b>!
+        </p>
+    </summary>
+</entry>
+<entry>
+    <title type="text">Алгоритм Еллера</title>
+    <link rel="alternate" type="text" href="https://prykoliakhy.v.ua/articles/alhorytm-ellera.html" />
+    <id>https://prykoliakhy.v.ua/articles/alhorytm-ellera.html</id>
+    <published>2021-10-07T13:32:54.390+00:00</published>
+    <updated>2021-10-07T13:32:54.390+00:00</updated>
+    <autor><name>SerhiyHelp</name></autor>
+    <summary type="html">
+        <p>
+            Вийшла нова стаття <b>Алгоритм Еллера</b> з циклу <b>Генерація лабіринтів</b>!
+        </p>
+    </summary>
+</entry>
+
 </feed>
