@@ -1,0 +1,13 @@
+<entry>
+    <title type="text">%TITLE</title>
+    <link rel="alternate" type="text" href="%LINK" />
+    <id>%LINK</id>
+    <published>%CREATION_DATE</published>
+    <updated>%UPDATE_DATE</updated>
+    <autor><name>SerhiyHelp</name></autor>
+    <summary type="html">
+        <p>
+            Вийшла нова стаття <b>%TITLE</b> з циклу <b>%CYCLE</b>!
+        </p>
+    </summary>
+</entry>

@@ -1,0 +1,10 @@
+<feed xml:lang="uk">
+    <title type="text"> Приколяхи </title>
+    <subtitle type="text"> Блог </subtitle>
+    <updated> %LAST_UPDATE </updated>
+    <link rel="alternate" type="text/html" href="https://prykoliakhy.v.ua/" />
+    <link rel="self" type="text/html" href="https://prykoliakhy.v.ua/feed.atom"/>
+    <id>https://prykoliakhy.v.ua/feed.atom</id>
+
+    %ENTRIES
+</feed>
