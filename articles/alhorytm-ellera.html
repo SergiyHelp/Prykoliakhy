@@ -35,54 +35,54 @@
 генеруються випадковим чином, але при дотриманні певних правил, які гарантують
 відсутність циклів у лабіринті.</p>
 <p><img src="/images/img.webp" alt="fish" /></p>
-<pre><code>func eller(rows: int, cols: int) -&gt; Array:
+<pre><code><span class="word">func</span> eller(rows: int, cols: int) -&gt; Array:
 	<span class="word">var</span> maze = create_array2D(rows, cols)
 	<span class="word">var</span> free_group = 0
 
-	<span class="word">for</span> i in rows:
+	<span class="word">for</span> i <span class="word">in</span> rows:
 		<span class="word">var</span> row = maze[i]
 
 		# Спершу, потрібно заповнити ряд групами
 		<span class="word">if</span> i == 0:  			# Якщо це перший рядок: зоповнити його повністю новими значеннями
-			<span class="word">for</span> j in cols:
+			<span class="word">for</span> j <span class="word">in</span> cols:
 				row[j].group = free_group
 				free_group += 1
-		else:   				# Інакше, копіювати групи з попереднього рядка там, де немає нижньої стінки.
-			<span class="word">for</span> j in cols:
+		<span class="word">else</span>:   				# Інакше, копіювати групи з попереднього рядка там, де немає нижньої стінки.
+			<span class="word">for</span> j <span class="word">in</span> cols:
 				<span class="word">if</span> maze[i - 1][j].has_bottom_wall:
 					row[j].group = free_group
 					free_group += 1
-				else:   		# Клітинки, які залишились, заповнити новими групами
+				<span class="word">else</span>:   		# Клітинки, які залишились, заповнити новими групами
 					row[j].group = maze[i - 1][j].group
 
 		# Потім - додати бокові стінки
-		<span class="word">for</span> j in cols:
+		<span class="word">for</span> j <span class="word">in</span> cols:
 			# Додати стінку якщо:
 			# це остання клітинка
 			# АБО наступна клітинка має таку ж групу
 			# АБО випадково ПРИ УМОВІ що це не останній рядок
 			<span class="word">if</span> j == cols - 1 || row[j].group == row[j + 1].group || (i &lt; rows - 1 &amp;&amp; deside()):
 				row[j].has_right_wall = true
-			else:
+			<span class="word">else</span>:
 				<span class="word">var</span> target_group = row[j + 1].group
-				<span class="word">for</span> x in cols:
+				<span class="word">for</span> x <span class="word">in</span> cols:
 					<span class="word">if</span> row[x].group == target_group:
 						row[x].group = row[j].group
 
 		# І додати стінки знизу
 		<span class="word">if</span> i &lt; rows - 1:
-			<span class="word">for</span> j in cols:
+			<span class="word">for</span> j <span class="word">in</span> cols:
 				<span class="word">if</span> row[j].has_right_wall:
 					<span class="word">var</span> group_has_hole = false
-					<span class="word">for</span> x in j:
+					<span class="word">for</span> x <span class="word">in</span> j:
 						<span class="word">if</span> row[x].has_bottom_wall == false &amp;&amp; row[x].group == row[j].group:
 							group_has_hole = true
 					row[j].has_bottom_wall = deside() <span class="word">if</span> group_has_hole <span class="word">else</span> false
 					group_has_hole = false
 				<span class="word">elif</span> deside():
 					row[j].has_bottom_wall = true
-		else:
-			<span class="word">for</span> j in cols:
+		<span class="word">else</span>:
+			<span class="word">for</span> j <span class="word">in</span> cols:
 				row[j].has_bottom_wall = true
 	<span class="word">return</span> maze
 </code></pre>
