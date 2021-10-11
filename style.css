@@ -22,12 +22,7 @@ html {
     margin: 0;
     padding: 0;
 }
-body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
+body { margin: 0; }
 
 header {
     background: var(--dark-bg);
@@ -43,7 +38,6 @@ header {
 .description { margin-bottom: 50px; }
 
 main {
-    margin: 0 auto auto auto;
     margin-left: auto;
     margin-right: auto;
     padding: 0 10px 20px 10px;
@@ -72,7 +66,10 @@ main img, header a img, video {
     max-height: 100%;
 }
 
-code { background-color: var(--code-bg); }
+code {
+	background-color: var(--code-bg);
+	tab-size: 4;
+}
 .comment { color: var(--green) }
 .string { color: var(--red) }
 .word { color: var(--blue) }
