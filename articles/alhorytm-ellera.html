@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <title>Алгоритм Еллера</title>
     <style>
-        :root { --accent: #8ec07c; }
+        :root { --accent: #fabd2f; }
     </style>
     <link rel="stylesheet" href="/style.css">
     <link rel="icon" href="/images/icon.svg">
@@ -36,55 +36,55 @@
 відсутність циклів у лабіринті.</p>
 <p><img src="/images/img.webp" alt="fish" /></p>
 <pre><code>func eller(rows: int, cols: int) -&gt; Array:
-	var maze = create_array2D(rows, cols)
-	var free_group = 0
+	<span class="word">var</span> maze = create_array2D(rows, cols)
+	<span class="word">var</span> free_group = 0
 
-	for i in rows:
-		var row = maze[i]
+	<span class="word">for</span> i in rows:
+		<span class="word">var</span> row = maze[i]
 
 		# Спершу, потрібно заповнити ряд групами
-		if i == 0:  			# Якщо це перший рядок: зоповнити його повністю новими значеннями
-			for j in cols:
+		<span class="word">if</span> i == 0:  			# Якщо це перший рядок: зоповнити його повністю новими значеннями
+			<span class="word">for</span> j in cols:
 				row[j].group = free_group
 				free_group += 1
 		else:   				# Інакше, копіювати групи з попереднього рядка там, де немає нижньої стінки.
-			for j in cols:
-				if maze[i - 1][j].has_bottom_wall:
+			<span class="word">for</span> j in cols:
+				<span class="word">if</span> maze[i - 1][j].has_bottom_wall:
 					row[j].group = free_group
 					free_group += 1
 				else:   		# Клітинки, які залишились, заповнити новими групами
 					row[j].group = maze[i - 1][j].group
 
 		# Потім - додати бокові стінки
-		for j in cols:
+		<span class="word">for</span> j in cols:
 			# Додати стінку якщо:
 			# це остання клітинка
 			# АБО наступна клітинка має таку ж групу
 			# АБО випадково ПРИ УМОВІ що це не останній рядок
-			if j == cols - 1 || row[j].group == row[j + 1].group || (i &lt; rows - 1 &amp;&amp; deside()):
+			<span class="word">if</span> j == cols - 1 || row[j].group == row[j + 1].group || (i &lt; rows - 1 &amp;&amp; deside()):
 				row[j].has_right_wall = true
 			else:
-				var target_group = row[j + 1].group
-				for x in cols:
-					if row[x].group == target_group:
+				<span class="word">var</span> target_group = row[j + 1].group
+				<span class="word">for</span> x in cols:
+					<span class="word">if</span> row[x].group == target_group:
 						row[x].group = row[j].group
 
 		# І додати стінки знизу
-		if i &lt; rows - 1:
-			for j in cols:
-				if row[j].has_right_wall:
-					var group_has_hole = false
-					for x in j:
-						if row[x].has_bottom_wall == false &amp;&amp; row[x].group == row[j].group:
+		<span class="word">if</span> i &lt; rows - 1:
+			<span class="word">for</span> j in cols:
+				<span class="word">if</span> row[j].has_right_wall:
+					<span class="word">var</span> group_has_hole = false
+					<span class="word">for</span> x in j:
+						<span class="word">if</span> row[x].has_bottom_wall == false &amp;&amp; row[x].group == row[j].group:
 							group_has_hole = true
-					row[j].has_bottom_wall = deside() if group_has_hole else false
+					row[j].has_bottom_wall = deside() <span class="word">if</span> group_has_hole <span class="word">else</span> false
 					group_has_hole = false
-				elif deside():
+				<span class="word">elif</span> deside():
 					row[j].has_bottom_wall = true
 		else:
-			for j in cols:
+			<span class="word">for</span> j in cols:
 				row[j].has_bottom_wall = true
-	return maze
+	<span class="word">return</span> maze
 </code></pre>
 <p>До початку воєнних дій російський Балтійський флот значно поступався німецькому
 кайзерівському флоту, тому усі його плани будувалися з розрахунку на підтримку
@@ -94,8 +94,7 @@
 скоріше мали характер розвідки боєм, ніж повномасштабних бойових зіткнень
 флотів двох держав. Протягом кампанії 1914 року російський Балтійський флот
 перейшов від пасивного очікування противника в гирлі Фінської затоки до
-активних дій на всій акваторії моря.</p>
-
+активних дій на всій акваторії мо
 <div class="cycle"> Стаття з циклу: <a href="/cycles/heneratsiia-labiryntiv.html">Генерація лабіринтів</a> </div>
 <div class="navigation">
     
