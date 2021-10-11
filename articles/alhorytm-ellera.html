@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <title>Алгоритм Еллера</title>
     <style>
-        :root { --accent: #fe8019; }
+        :root { --accent: #8ec07c; }
     </style>
     <link rel="stylesheet" href="/style.css">
     <link rel="icon" href="/images/icon.svg">
@@ -35,24 +35,56 @@
 генеруються випадковим чином, але при дотриманні певних правил, які гарантують
 відсутність циклів у лабіринті.</p>
 <p><img src="/images/img.webp" alt="fish" /></p>
-<pre><code class="language-gdscript">func some_function(param1, param2):
-    var local_var = 5
+<pre><code>func eller(rows: int, cols: int) -&gt; Array:
+	var maze = create_array2D(rows, cols)
+	var free_group = 0
 
-    if param1 &lt; local_var:
-        print(param1)
-    elif param2 &gt; 5:
-        print(param2)
-    else:
-        print(&quot;Fail!&quot;)
+	for i in rows:
+		var row = maze[i]
 
-    for i in range(20):
-        print(i)
+		# Спершу, потрібно заповнити ряд групами
+		if i == 0:  			# Якщо це перший рядок: зоповнити його повністю новими значеннями
+			for j in cols:
+				row[j].group = free_group
+				free_group += 1
+		else:   				# Інакше, копіювати групи з попереднього рядка там, де немає нижньої стінки.
+			for j in cols:
+				if maze[i - 1][j].has_bottom_wall:
+					row[j].group = free_group
+					free_group += 1
+				else:   		# Клітинки, які залишились, заповнити новими групами
+					row[j].group = maze[i - 1][j].group
 
-    while param2 != 0:
-        param2 -= 1
+		# Потім - додати бокові стінки
+		for j in cols:
+			# Додати стінку якщо:
+			# це остання клітинка
+			# АБО наступна клітинка має таку ж групу
+			# АБО випадково ПРИ УМОВІ що це не останній рядок
+			if j == cols - 1 || row[j].group == row[j + 1].group || (i &lt; rows - 1 &amp;&amp; deside()):
+				row[j].has_right_wall = true
+			else:
+				var target_group = row[j + 1].group
+				for x in cols:
+					if row[x].group == target_group:
+						row[x].group = row[j].group
 
-    var local_var2 = param1 + 3
-    return local_var2
+		# І додати стінки знизу
+		if i &lt; rows - 1:
+			for j in cols:
+				if row[j].has_right_wall:
+					var group_has_hole = false
+					for x in j:
+						if row[x].has_bottom_wall == false &amp;&amp; row[x].group == row[j].group:
+							group_has_hole = true
+					row[j].has_bottom_wall = deside() if group_has_hole else false
+					group_has_hole = false
+				elif deside():
+					row[j].has_bottom_wall = true
+		else:
+			for j in cols:
+				row[j].has_bottom_wall = true
+	return maze
 </code></pre>
 <p>До початку воєнних дій російський Балтійський флот значно поступався німецькому
 кайзерівському флоту, тому усі його плани будувалися з розрахунку на підтримку
