@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <title>Алгоритм Еллера</title>
     <style>
-        :root { --accent: #d3869b; }
+        :root { --accent: #458588; }
     </style>
     <link rel="stylesheet" href="/style.css">
     <link rel="icon" href="/images/icon.svg">
@@ -43,16 +43,16 @@
 		<span class="word">var</span> row = maze[i]
 
 		<span class="comment"># Спершу, потрібно заповнити ряд групами</span>
-		<span class="word">if</span> i == 0:  			<span class="comment"># Якщо це перший рядок: зоповнити його повністю новими значеннями</span>
+		<span class="word">if</span> i == 0:  <span class="comment"># Якщо це перший рядок: зоповнити його повністю новими значеннями</span>
 			<span class="word">for</span> j <span class="word">in</span> cols:
 				row[j].group = free_group
 				free_group += 1
-		<span class="word">else</span>:   				<span class="comment"># Інакше, копіювати групи з попереднього рядка там, де немає нижньої стінки.</span>
+		<span class="word">else</span>:   <span class="comment"># Інакше, копіювати групи з попереднього рядка там, де немає нижньої стінки.</span>
 			<span class="word">for</span> j <span class="word">in</span> cols:
 				<span class="word">if</span> maze[i - 1][j].has_bottom_wall:
 					row[j].group = free_group
 					free_group += 1
-				<span class="word">else</span>:   		<span class="comment"># Клітинки, які залишились, заповнити новими групами</span>
+				<span class="word">else</span>:   <span class="comment"># Клітинки, які залишились, заповнити новими групами</span>
 					row[j].group = maze[i - 1][j].group
 
 		<span class="comment"># Потім - додати бокові стінки</span>
