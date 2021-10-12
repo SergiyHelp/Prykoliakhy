@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <title>Алгоритм Еллера</title>
     <style>
-        :root { --accent: #fabd2f; }
+        :root { --accent: #d3869b; }
     </style>
     <link rel="stylesheet" href="/style.css">
     <link rel="icon" href="/images/icon.svg">
@@ -42,25 +42,25 @@
 	<span class="word">for</span> i <span class="word">in</span> rows:
 		<span class="word">var</span> row = maze[i]
 
-		# Спершу, потрібно заповнити ряд групами
-		<span class="word">if</span> i == 0:  			# Якщо це перший рядок: зоповнити його повністю новими значеннями
+		<span class="comment"># Спершу, потрібно заповнити ряд групами</span>
+		<span class="word">if</span> i == 0:  			<span class="comment"># Якщо це перший рядок: зоповнити його повністю новими значеннями</span>
 			<span class="word">for</span> j <span class="word">in</span> cols:
 				row[j].group = free_group
 				free_group += 1
-		<span class="word">else</span>:   				# Інакше, копіювати групи з попереднього рядка там, де немає нижньої стінки.
+		<span class="word">else</span>:   				<span class="comment"># Інакше, копіювати групи з попереднього рядка там, де немає нижньої стінки.</span>
 			<span class="word">for</span> j <span class="word">in</span> cols:
 				<span class="word">if</span> maze[i - 1][j].has_bottom_wall:
 					row[j].group = free_group
 					free_group += 1
-				<span class="word">else</span>:   		# Клітинки, які залишились, заповнити новими групами
+				<span class="word">else</span>:   		<span class="comment"># Клітинки, які залишились, заповнити новими групами</span>
 					row[j].group = maze[i - 1][j].group
 
-		# Потім - додати бокові стінки
+		<span class="comment"># Потім - додати бокові стінки</span>
 		<span class="word">for</span> j <span class="word">in</span> cols:
-			# Додати стінку якщо:
-			# це остання клітинка
-			# АБО наступна клітинка має таку ж групу
-			# АБО випадково ПРИ УМОВІ що це не останній рядок
+			<span class="comment"># Додати стінку якщо:</span>
+			<span class="comment"># це остання клітинка</span>
+			<span class="comment"># АБО наступна клітинка має таку ж групу</span>
+			<span class="comment"># АБО випадково ПРИ УМОВІ що це не останній рядок</span>
 			<span class="word">if</span> j == cols - 1 || row[j].group == row[j + 1].group || (i &lt; rows - 1 &amp;&amp; deside()):
 				row[j].has_right_wall = true
 			<span class="word">else</span>:
@@ -69,7 +69,7 @@
 					<span class="word">if</span> row[x].group == target_group:
 						row[x].group = row[j].group
 
-		# І додати стінки знизу
+		<span class="comment"># І додати стінки знизу</span>
 		<span class="word">if</span> i &lt; rows - 1:
 			<span class="word">for</span> j <span class="word">in</span> cols:
 				<span class="word">if</span> row[j].has_right_wall:
