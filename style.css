@@ -70,9 +70,9 @@ code {
 	background-color: var(--code-bg);
 	tab-size: 4;
 }
-.comment { color: var(--green) }
-.string { color: var(--red) }
-.word { color: var(--blue) }
+.comment { color: var(--blue) }
+.string { color: var(--aqua) }
+.word { color: var(--red) }
 
 pre {
     overflow-x:auto;
