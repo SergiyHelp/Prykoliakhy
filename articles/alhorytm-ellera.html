@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <title>Алгоритм Еллера</title>
     <style>
-        :root { --accent: #458588; }
+        :root { --accent: #d3869b; }
     </style>
     <link rel="stylesheet" href="/style.css">
     <link rel="icon" href="/images/icon.svg">
@@ -33,8 +33,9 @@
 клітини з різних множин знаходяться в ізольованих між собою частинах лабіринту.
 У кожної клітинки може бути або не бути права та нижня стінка. Загалом, стінки
 генеруються випадковим чином, але при дотриманні певних правил, які гарантують
-відсутність циклів у лабіринті.</p>
-<p><img src="/images/img.webp" alt="fish" /></p>
+відсутність циклів у лабіринті.
+<img src="/images/eller-maze.webp" alt="великий лабіринт" />
+<img src="/images/eller-maze2.webp" alt="малий лабіринт" /></p>
 <pre><code><span class="word">func</span> eller(rows: int, cols: int) -&gt; Array:
 	<span class="word">var</span> maze = create_array2D(rows, cols)
 	<span class="word">var</span> free_group = 0
