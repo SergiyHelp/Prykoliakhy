@@ -1,69 +1,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 :root {
-    --dark-bg: #1d2021;
-    --bg: #282828;
-    --code-bg: #3c3836;
-    --item-bg: #504945;
-    --fg: #ebdbb2;
-    --red: #fb4934;
-    --green: #b8bb26;
-    --yellow: #fabd2f;
-    --dark-blue: #458588;
-    --blue: #83a598;
-    --purple: #d3869b;
-    --aqua: #8ec07c;
-    --orange: #fe8019;
+	--dark-bg: #1d2021;
+	--bg: #282828;
+	--code-bg: #3c3836;
+	--item-bg: #504945;
+	--fg: #ebdbb2;
+	--highlighted-fg: "fbf1c7";
+	--red: #fb4934;
+	--green: #b8bb26;
+	--yellow: #fabd2f;
+	--dark-blue: #458588;
+	--blue: #83a598;
+	--purple: #d3869b;
+	--aqua: #8ec07c;
+	--orange: #fe8019;
 }
 
 html {
-    font-family: 'Merriweather', sans-serif;
-    background: var(--bg);
-    color: var(--fg);
-    margin: 0;
-    padding: 0;
+	font-family: 'Merriweather', sans-serif;
+	background: var(--bg);
+	color: var(--fg);
 }
 body { margin: 0; }
 
 header {
-    background: var(--dark-bg);
-    padding: 10px;
-    align:center;
+	background: var(--dark-bg);
+	padding: 10px;
 }
 .main-logo {
-    margin: 100px 0;
-    width: 100%;
-    max-width: 100%;
+	margin: 130px 0;
+	max-width: 100%;
 }
-.center { text-align: center; }
-.description { margin-bottom: 50px; }
+.description {
+	margin-bottom: 50px;
+	text-align: center;
+}
 
 main {
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 10px 20px 10px;
-    max-width: 800px;
+	margin: auto;
+	padding: 0 10px 30px 10px;
+	max-width: 800px;
 }
 
 footer {
-    margin: 0;
-    padding: 20px;
-    min-height: 150px;
-    background: var(--dark-bg);
+	margin: 0;
+	padding: 20px;
+	background: var(--dark-bg);
 }
 
 a { color: var(--blue); }
 a:visited { color: var(--purple); }
 
 p {
-    text-indent: 4ch;
-    padding: 0 15px;
+	text-indent: 4ch;
+	padding: 0 15px;
 }
 
 main img, header a img, video {
-    display: block;
-    margin: 5px auto;
-    max-width: 80%;
-    max-height: 100%;
+	display: block;
+	margin: 5px auto;
+	max-width: 80%;
+	max-height: 100%;
 }
 
 code {
@@ -75,73 +72,82 @@ code {
 .word { color: var(--red) }
 
 pre {
-    overflow-x:auto;
-    padding: 5px;
-    background-color: var(--code-bg);
+	overflow-x:auto;
+	padding: 5px;
+	background-color: var(--code-bg);
 }
 
 h1 { text-align: center; }
 h2 {
-    padding: 10px;
-    background-color: var(--accent);
-    color: var(--bg);
+	padding: 10px;
+	background-color: var(--accent);
+	color: var(--bg);
 }
-h3 { padding-left: 10px; }
-
-.cycle {
-    margin: 20px 5ch;
-    font-style: italic;
+h3 {
+	padding-left: 10px;
+	color: var(--highlighted-fg);
 }
 
-.navigation {
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
+strong { color: var(--highlighted-fg); }
+
+.cycle-reference {
+	margin: 20px 5ch;
+	font-style: italic;
+}
+
+nav {
+	padding: 10px;
+	display: flex;
+	flex-direction: row;
 }
 
 .btn, .btn:visited {
-    flex-grow: 2;
-    margin: 5px;
-    padding: 10px;
-    text-align: center;
-    background-color: var(--accent);
-    color: var(--dark-bg);
+	text-decoration: none;
+	flex-grow: 2;
+	margin: 5px;
+	padding: 10px;
+	text-align: center;
+	background-color: var(--accent);
+	color: var(--dark-bg);
+}
+
+.cycles-list {
+	list-style-type: none;
+	padding: 0;
 }
 
 .articles-list {
-    display: flex;
-    flex-direction: column;
+	list-style-type: none;
+	padding: 0;
 }
-
-.article-entry, .article-entry:visited {
-    background-color: var(--code-bg);
-    color: var(--fg);
-    padding: 10px 20px;
-    margin: 5px 30px;
-    text-decoration: none;
+.article-entry {
+	background-color: var(--code-bg);
+	margin: 10px 30px;
+}
+.article-entry a, .article-entry a:visited {
+	padding: 10px 20px;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	color: var(--fg);
+	text-decoration: none;
 }
 
 .icon {
-    width: 15px;
-    height: 15px;
+	width: 15px;
+	height: 15px;
 }
 
 @media (max-width: 400px) {
-    p {
-        padding: 0;
-    }
-    main img, video {
-        max-width: 100%;
-    }
-    .navigation {
-        flex-direction: column;
-    }
+	p { padding: 0; }
+	main img, video { max-width: 100%; }
+	.navigation { flex-direction: column; }
 }
 
 @media print {
-    * { color: black; }
-    a, a:visited {
-        color: black;
-        text-decoration: none;
-    }
+	* { color: black; }
+	a, a:visited {
+		color: black;
+		text-decoration: none;
+	}
 }

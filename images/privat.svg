@@ -3,14 +3,36 @@
 
 <svg
    xml:space="preserve"
-   width="128"
-   height="128"
+   width="64"
+   height="64"
    version="1.1"
    style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
-   viewBox="0 0 3386.6668 3386.6665"
+   viewBox="0 0 1693.3334 1693.3332"
    id="svg32"
+   sodipodi:docname="privat.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+   id="namedview9"
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   showgrid="false"
+   inkscape:snap-page="true"
+   inkscape:zoom="5.140625"
+   inkscape:cx="17.215805"
+   inkscape:cy="41.045593"
+   inkscape:window-width="1920"
+   inkscape:window-height="1080"
+   inkscape:window-x="0"
+   inkscape:window-y="0"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="Слой_x0020_1" />
  <defs
    id="defs4">
   <style
@@ -23,7 +45,9 @@
   </style>
  </defs>
  <g
-   id="Слой_x0020_1">
+   id="Слой_x0020_1"
+   inkscape:label="Слой 1"
+   inkscape:groupmode="layer">
   <metadata
    id="CorelCorpID_0Corel-Layer" />
   
@@ -38,13 +62,14 @@
   
   <polygon
    class="fil1"
-   points="1246.41,1899.84 1246.41,2213.07 1559.64,2213.07 1559.64,1899.84 "
+   points="1559.64,2213.07 1559.64,1899.84 1246.41,1899.84 1246.41,2213.07 "
    id="polygon27"
-   transform="matrix(4.1916283,0,0,4.1916283,-5214.3898,-5908.2542)" />
+   transform="matrix(2.1056985,0,0,2.1049945,-2624.5637,-2965.1669)"
+   style="fill:#ebdbb2;fill-opacity:1" />
   <path
    class="fil0"
-   d="m 2686.564,707.51673 c 0,448.30947 0,1529.53877 0,1977.84827 -125.2202,0 -147.2757,0 -268.9604,0 C 2301.475,1707.2161 1686.8647,1092.7741 708.54743,976.64551 c 0,-121.6846 0,-143.65601 0,-269.12878 448.35157,0 1529.66497,0 1978.01657,0 z M 11.481167,10.534628 V 1651.53 H 360.11955 c 917.45395,0 1382.64175,465.1036 1382.64175,1382.2629 v 348.6384 h 1640.869 V 10.534628 Z"
+   d="m 1343.1564,350.01755 c 0,225.13658 0,768.11935 0,993.25595 -62.9054,0 -73.9851,0 -135.1144,0 -58.3382,-491.21678 -367.09268,-799.78347 -858.55829,-858.10213 0,-61.10881 0,-72.14263 0,-135.15382 225.23303,0 768.43959,0 993.67269,0 z M -0.69318255,0 V 824.09169 H 174.44814 c 460.89043,0 694.58129,233.57041 694.58129,694.15881 v 175.0828 H 1693.3333 V 0 Z"
    id="path29"
-   style="stroke-width:4.20908" />
+   style="stroke-width:2.11411;fill:#b8bb26;fill-opacity:0.99215686" />
  </g>
 </svg>

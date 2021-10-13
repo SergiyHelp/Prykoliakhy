@@ -4,7 +4,7 @@
 		<meta charset="utf-8"/>
 		<title>Алгоритм Еллера</title>
 		<style>
-:root { --accent: #fe8019; }
+:root { --accent: #fabd2f; }
 		</style>
 		<link rel="stylesheet" href="style.css">
 		<link rel="icon" href="images/icon.svg">
@@ -16,7 +16,7 @@
 	</head>
 	<body>
 		<header>
-			<a href="index.html"><img src="images/icon.svg" height=30em /></a>
+			<a href="index.html"><img src="images/icon.svg" alt="На головну" height=30em /></a>
 		</header>
 		<main>
 			<h1>Алгоритм Еллера</h1>
@@ -119,6 +119,8 @@
 				row[j].has_bottom_wall = true
 	<span class="word">return</span> maze
 </code></pre>
+<p>Алгоритм використовує клас <code>MazeCell</code> для опису клітинки.
+В класі використовується поле, яким задається група клітинки <code><span class="word">export</span> <span class="word">var</span> group : int</code></p>
 <pre><code><span class="word">class</span> MazeCell:
 	<span class="word">extends</span> Reference
 
@@ -138,31 +140,43 @@
 	<span class="word">return</span> arr
 </code></pre>
 
-<div class="cycle"> Стаття з циклу: <a href="index.html#heneratsiia-labiryntiv">Генерація лабіринтів</a> </div>
-<div class="navigation">
+<div class="cycle-reference"> Стаття з циклу: <a href="index.html#heneratsiia-labiryntiv">Генерація лабіринтів</a> </div>
+<nav>
     
     
-</div>
+</nav>
 
 		</main>
 		<footer>
 			<div>
-				Підтримай автора:<br>
-				<a href="https://privatbank.ua/sendmoney?payment=4f11f2ed6d">
-					<img class="icon" src="images/privat.svg">ПриватБанк Sendmoney
-				</a>
+				Підтримай автора:
+				<ul>
+					<li>
+						<a href="https://privatbank.ua/sendmoney?payment=4f11f2ed6d">
+							<img class="icon" alt="privat" src="images/privat.svg">ПриватБанк Sendmoney
+						</a>
+					</li>
+				</ul>
 			</div>
 			<div>
-				Є питання чи пропозиції?<br>
-				<a href="mailto:sergiyhelp@gmail.com">
-					<img class="icon" src="images/email.svg">sergiyhelp@gmail.com
-				</a>
+				Є питання чи пропозиції?
+				<ul>
+					<li>
+						<a href="mailto:sergiyhelp@gmail.com">
+							<img class="icon" alt="email" src="images/email.svg">sergiyhelp@gmail.com
+						</a>
+					</li>
+				</ul>
 			</div>
 			<div>
-				Подпишись на новини:<br>
-				<a href="https://t.me/prykoliakhy">
-					<img class="icon" src="images/telegram.svg">Telegram
-				</a>
+				Подпишись на новини:
+				<ul>
+					<li>
+						<a href="https://t.me/prykoliakhy">
+							<img class="icon" alt="tg" src="images/telegram.svg">Telegram
+						</a>
+					</li>
+				</ul>
 			</div>
 		</footer>
 	</body>
