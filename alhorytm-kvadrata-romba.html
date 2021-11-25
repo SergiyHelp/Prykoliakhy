@@ -4,7 +4,7 @@
 		<meta charset="utf-8"/>
 		<title>Алгоритм квадрата-ромба</title>
 		<style>
-:root { --accent: #8ec07c; }
+:root { --accent: #d3869b; }
 		</style>
 		<link rel="stylesheet" href="style.css">
 		<link rel="icon" href="images/icon.svg">
@@ -25,7 +25,7 @@
 варто розібратись з <em>алгоритмом зміщення серединної точки</em> (midpoint displasement).
 Найпростіший варіант цього алгоритму працює зі списком висот.
 Він підходить для того, щоб створити ландшафт для 2D гри або для створення лінії обрію.</p>
-<p><img src="images/midpoint-displasement.webp" alt="Анімація виконання алгоритму" /></p>
+<p><img src="images/midpoint-displacement.webp" alt="Анімація виконання алгоритму" /></p>
 <h3>Як працює алгоритм</h3>
 <p>Списки висот, які утворює цей алгоритм,
 мають довжину 2<sup>n</sup>+1.
@@ -77,12 +77,47 @@
 <p>Розширена версія алгоритму працює для прямокутників зі сторонами 2<sup>n</sup>+1.
 Взагалі, алгоритм можна доповнювати далі, для роботи з вищими розмірностями.
 У такий спосіб можна генерувати печери, туманності та хмари газу.</p>
+<p><img src="images/midpoint-displacement-2d.webp" alt="Анімація генерації ландшафту з АЗСТ2" /></p>
 <p>Якщо раніше ми розглядали відрізок на двох точках, який ми розбивали на два нових відрізка,
 то тепер, ми працюємо з квадратом, який ми маємо розбити на чотири нових.
 Для цього нам потрібно знайти одну точку в центрі квадрата, та чотири - на ребрах.
 Значення центральної точки дорівнює середньому арифметичному значень кутових точок плюс зміщення.
 Зміщення шукається так само як і в оригінальній версії алгоритму.
 Значення ж точок на ребрах — це середнє значення <strong>двох</strong> точок на прилеглих до ребра кутах плюс зміщення.</p>
+<pre><code><span class="word">func</span> generate(subdivisions: int, roughness: float, land_seed: int) -&gt; Array:
+	<span class="word">var</span> rng = RandomNumberGenerator.new()
+	rng.seed = land_seed
+
+	<span class="word">var</span> p_size = pow(2, subdivisions) + 1
+	<span class="word">var</span> map = []
+	<span class="word">for</span> x <span class="word">in</span> p_size:
+		map.append([])
+		<span class="word">for</span> y <span class="word">in</span> p_size:
+			map[x].append(0)
+
+	<span class="word">while</span> subdivisions &gt; 1:
+		subdivisions -= 1
+		<span class="word">var</span> i  = int(pow(2, subdivisions -1))
+		<span class="comment"># центри</span>
+		<span class="word">for</span> x <span class="word">in</span> range(i, p_size - i, i * 2):
+			<span class="word">for</span> y <span class="word">in</span> range(i, p_size - i, i * 2):
+				map[x][y] = (map[x - i][y - i] + map[x - i][y + i] + map[x + i][y - i] + map[x + i][y + i]) * 0.25
+				map[x][y] += rng.randfn() * roughness
+		<span class="comment">#вертикалі</span>
+		<span class="word">for</span> x <span class="word">in</span> range(0, p_size, i * 2):
+			<span class="word">for</span> y <span class="word">in</span> range(i, p_size - i, i * 2):
+				map[x][y] = (map[x][y + i] + map[x][y - i]) * 0.5
+				map[x][y] += rng.randfn() * roughness
+		<span class="comment">#горизонталі</span>
+		<span class="word">for</span> x <span class="word">in</span> range(i, p_size - i, i * 2):
+			<span class="word">for</span> y <span class="word">in</span> range(0, p_size, i * 2):
+				map[x][y] = (map[x + i][y] + map[x - i][y]) * 0.5
+				map[x][y] += rng.randfn() * roughness
+
+		roughness *= 0.5
+
+	<span class="word">return</span> map
+</code></pre>
 <h2>Власне алгоритм квадрата-ромба</h2>
 <p>В землях згенерованих алгоритмом зміщення серединної точки
 деякі точки отримають своє значення на основі значень чотирьох інших точок а деякі - на основі двох.
@@ -102,8 +137,7 @@
 <div class="cycle-reference"> Стаття з циклу: <a href="index.html#heneratsiia-landshaftu">Генерація ландшафту</a> </div>
 <nav>
     
-    <a class="btn" href="shum-perlina.html">Наступна стаття</a>
-
+    
 </nav>
 
 		</main>

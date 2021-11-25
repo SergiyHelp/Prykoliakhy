@@ -7,7 +7,7 @@
 Найпростіший варіант цього алгоритму працює зі списком висот.
 Він підходить для того, щоб створити ландшафт для 2D гри або для створення лінії обрію.
 
-![Анімація виконання алгоритму](images/midpoint-displasement.webp)
+![Анімація виконання алгоритму](images/midpoint-displacement.webp)
 
 ### Як працює алгоритм
 
@@ -72,12 +72,51 @@ func generate(subdivisions: int, roughness: float, land_seed: int) -> Array:
 Взагалі, алгоритм можна доповнювати далі, для роботи з вищими розмірностями.
 У такий спосіб можна генерувати печери, туманності та хмари газу.
 
+![Анімація генерації ландшафту з АЗСТ2](images/midpoint-displacement-2d.webp)
+
 Якщо раніше ми розглядали відрізок на двох точках, який ми розбивали на два нових відрізка,
 то тепер, ми працюємо з квадратом, який ми маємо розбити на чотири нових.
 Для цього нам потрібно знайти одну точку в центрі квадрата, та чотири - на ребрах.
 Значення центральної точки дорівнює середньому арифметичному значень кутових точок плюс зміщення.
 Зміщення шукається так само як і в оригінальній версії алгоритму.
 Значення ж точок на ребрах — це середнє значення **двох** точок на прилеглих до ребра кутах плюс зміщення.
+
+```
+func generate(subdivisions: int, roughness: float, land_seed: int) -> Array:
+	var rng = RandomNumberGenerator.new()
+	rng.seed = land_seed
+
+	var p_size = pow(2, subdivisions) + 1
+	var map = []
+	for x in p_size:
+		map.append([])
+		for y in p_size:
+			map[x].append(0)
+
+	while subdivisions > 1:
+		subdivisions -= 1
+		var i  = int(pow(2, subdivisions -1))
+		# центри
+		for x in range(i, p_size - i, i * 2):
+			for y in range(i, p_size - i, i * 2):
+				map[x][y] = (map[x - i][y - i] + map[x - i][y + i] + map[x + i][y - i] + map[x + i][y + i]) * 0.25
+				map[x][y] += rng.randfn() * roughness
+		#вертикалі
+		for x in range(0, p_size, i * 2):
+			for y in range(i, p_size - i, i * 2):
+				map[x][y] = (map[x][y + i] + map[x][y - i]) * 0.5
+				map[x][y] += rng.randfn() * roughness
+		#горизонталі
+		for x in range(i, p_size - i, i * 2):
+			for y in range(0, p_size, i * 2):
+				map[x][y] = (map[x + i][y] + map[x - i][y]) * 0.5
+				map[x][y] += rng.randfn() * roughness
+
+		roughness *= 0.5
+
+	return map
+```
+
 
 ## Власне алгоритм квадрата-ромба
 
