@@ -1,3 +1,3 @@
 # Prykoliakhy
-Wesite with cool articles.
-https://sergiyhelp.github.io/Prykoliakhy/index.html
+Інтернет журнал зі статтями на теми близькі до ІТ:
+https://prykoliakhy.v.ua/
