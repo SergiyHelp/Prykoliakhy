@@ -52,6 +52,7 @@ a { color: var(--blue); }
 a:visited { color: var(--purple); }
 
 p {
+	hyphens: auto;
 	text-indent: 4ch;
 	padding: 0 15px;
 }
