@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html>
-	<head lang="uk">
+<html lang="uk">
+	<head>
 		<meta charset="utf-8"/>
 		<title>Алгоритм квадрата-ромба</title>
-		<style>
-:root { --accent: #fe8019; }
-		</style>
+		<style>:root { --accent: #d3869b }</style>
 		<link rel="stylesheet" href="style.css">
 		<link rel="icon" href="images/icon.svg">
-		<meta name="author" content="serhiy help">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="
 					Інтернет журнал зі статтями на різні цікаві теми:
@@ -16,214 +13,173 @@
 	</head>
 	<body>
 		<header>
-			<a href="index.html"><img src="images/icon.svg" alt="На головну" height=30em /></a>
+			<a href="index.html"><img id="logo" src="images/icon.svg" alt="На головну" height=30em /></a>
 		</header>
 		<main>
-			<h1>Алгоритм квадрата-ромба</h1>
-<h2>Алгоритм зміщення серединної точки</h2>
-<h3>Спрощена версія</h3>
-<p>Перш ніж вести мову за алгоритм квадрата-ромба
-варто розібратись з <em>алгоритмом зміщення серединної точки</em> (midpoint displasement).
-Найпростіший варіант цього алгоритму працює зі списком висот.
-Він підходить для того, щоб створювати рівні для двовимірних ігор чи ліній горизонту.</p>
-<p><img src="images/midpoint-displacement.webp" alt="Анімація виконання алгоритму" /></p>
-<h3>Як працює алгоритм</h3>
-<p>Алгоритм описує ландшафт як список висот точок.
-Такий список може мати довжину 2<sup>n</sup>+1.
-Щоби зробити ландшафт іншої довжини,
-можна згенерувати ландшафт більшого розміру та обрізати його частину.</p>
-<p>Спершу, почнімо зі списку вершин, який містить два елемента —
-їх значення будуть висотами по краям землі.
-Потім, додаймо новий елемент до списку між ними.
-Значення цього елемента буде дорівнювати середньому арифметичному значень елементів між якими він знаходиться
-плюс випадкове зміщення.
-Величина цього зміщення залежить від ітерації алгоритму: з кожною ітерацією вона падає.
-На мою думку, найкраще, коли вона падає в геометричній прогресії - в два рази на кожній ітерації.</p>
-<p>Тепер, після того як ми додали нову вершину, наш список містить три вершини,
-а значить — алгоритм закінчив свою першу ітерацію.</p>
-<p>Далі, на другій ітерації, ми повинні вставити нові вершини між старими,
-розширивши список до п'яти вершин.
-Значення цих вершин обраховується у спосіб зазначений вище.</p>
-<p>Так можна продовжувати далі, ітерація за ітерацією.
-Додаючи нові деталі до ландшафту.</p>
-<h3>Реалізація</h3>
+
+		<h1 id="алгоритм-квадрата-ромба">Алгоритм квадрата-ромба</h1>
+<h2 id="алгоритм-зміщення-серединної-точки">Алгоритм зміщення серединної точки</h2>
+<h3 id="спрощена-версія">Спрощена версія</h3>
+<p>Перш ніж вести мову за алгоритм квадрата-ромба варто розібратись з <em>алгоритмом зміщення серединної точки</em> (midpoint displasement). Найпростіший варіант цього алгоритму працює зі списком висот. Він підходить для того, щоб створювати рівні для двовимірних ігор чи ліній горизонту.</p>
+<figure>
+<img src="images/midpoint-displacement.webp" alt="Анімація виконання алгоритму" /><figcaption aria-hidden="true">Анімація виконання алгоритму</figcaption>
+</figure>
+<h3 id="як-працює-алгоритм">Як працює алгоритм</h3>
+<p>Алгоритм описує ландшафт як список висот точок. Такий список може мати довжину 2<sup>n</sup>+1. Щоби зробити ландшафт іншої довжини, можна згенерувати ландшафт більшого розміру та обрізати його частину.</p>
+<p>Спершу, почнімо зі списку вершин, який містить два елемента — їх значення будуть висотами по краям землі. Потім, додаймо новий елемент до списку між ними. Значення цього елемента буде дорівнювати середньому арифметичному значень елементів між якими він знаходиться плюс випадкове зміщення. Величина цього зміщення залежить від ітерації алгоритму: з кожною ітерацією вона падає. На мою думку, найкраще, коли вона падає в геометричній прогресії - в два рази на кожній ітерації.</p>
+<p>Тепер, після того як ми додали нову вершину, наш список містить три вершини, а значить — алгоритм закінчив свою першу ітерацію.</p>
+<p>Далі, на другій ітерації, ми повинні вставити нові вершини між старими, розширивши список до п’яти вершин. Значення цих вершин обраховується у спосіб зазначений вище.</p>
+<p>Так можна продовжувати далі, ітерація за ітерацією. Додаючи нові деталі до ландшафту.</p>
+<h3 id="реалізація">Реалізація</h3>
 <p>Наведений код написаний на мові GDScript.</p>
-<pre><code><span class="word">func</span> generate(subdivisions: int, roughness: float, land_seed: int) -&gt; Array:
-	<span class="word">var</span> random = RandomNumberGenerator.new()
-	random.seed = land_seed
+<pre><code>func generate(subdivisions: <span class='w'>int</span>, roughness: <span class='w'>float</span>, land_seed: <span class='w'>int</span>) -&gt; Array:
+    var random = RandomNumberGenerator.new()
+    random.seed = land_seed
 
-	<span class="word">var</span> land: Array = []
+    var land: Array = []
 
-	<span class="comment"># Крайні точки списку</span>
-	land.append(randf())
-	land.append(randf())
+    # Крайні точки списку
+    land.append(randf())
+    land.append(randf())
 
-	<span class="word">for</span> n <span class="word">in</span> subdivisions:
-		<span class="word">var</span> i: int = 0
-		<span class="word">while</span> i &lt; land.size() - 1:
-			<span class="word">var</span> left = land[i]
-			<span class="word">var</span> right = land[i + 1]
-			<span class="word">var</span> mid = (left + right) * 0.5
-			<span class="comment"># roughness — множник, який регулює шершавість</span>
-			<span class="comment"># На анімації вище roughness = 0.2</span>
-			mid += random.randfn() / pow(2, n) * roughness
-			<span class="comment">#нова точна вставляється між старими</span>
-			land.insert(i + 1, mid)
-			<span class="comment"># індекс потрібно збільшити на 2 так як з'явився новий елемент</span>
-			i += 2
+    <span class='w'>for</span> n in subdivisions:
+        var i: <span class='w'>int</span> = 0
+        <span class='w'>while</span> i &lt; land.size() - 1:
+            var left = land[i]
+            var right = land[i + 1]
+            var mid = (left + right) * 0.5
+            # roughness — множник, який регулює шершавість
+            # На анімації вище roughness = 0.2
+            mid += random.randfn() / pow(2, n) * roughness
+            #нова точна вставляється між старими
+            land.insert(i + 1, mid)
+            # індекс потрібно збільшити на 2 так як з&#39;явився новий елемент
+            i += 2
 
-	<span class="word">return</span> land
-</code></pre>
-<h2>Алгоритм зміщення серединної точки (двовимірний)</h2>
-<h3>Розширена версія</h3>
-<p>Розширена версія алгоритму працює для прямокутників зі сторонами 2<sup>n</sup>+1.
-Взагалі, алгоритм можна розширювати далі, для роботи з вищими розмірностями.
-У такий спосіб можна генерувати печери, туманності та хмари газу.</p>
-<p><img src="images/midpoint-displacement-2d.webp" alt="Анімація генерації ландшафту ЗСТ2" /></p>
-<p>Якщо раніше ми розглядали відрізок на двох точках, який ми розбивали на два нових відрізка,
-то тепер, ми працюємо з квадратом, який ми маємо розбити на чотири нових.
-Для цього нам потрібно знайти одну точку в центрі квадрата, та чотири - на ребрах.
-Значення центральної точки дорівнює середньому арифметичному значень кутових точок плюс зміщення.
-Зміщення шукається так само як і в оригінальній версії алгоритму.
-Значення ж точок на ребрах — це середнє значення <strong>двох</strong> точок на прилеглих до ребра кутах плюс зміщення.</p>
+    <span class='w'>return</span> land</code></pre>
+<h2 id="алгоритм-зміщення-серединної-точки-двовимірний">Алгоритм зміщення серединної точки (двовимірний)</h2>
+<h3 id="розширена-версія">Розширена версія</h3>
+<p>Розширена версія алгоритму працює для прямокутників зі сторонами 2<sup>n</sup>+1. Взагалі, алгоритм можна розширювати далі, для роботи з вищими розмірностями. У такий спосіб можна генерувати печери, туманності та хмари газу.</p>
+<figure>
+<img src="images/midpoint-displacement-2d.webp" alt="Анімація генерації ландшафту ЗСТ2" /><figcaption aria-hidden="true">Анімація генерації ландшафту ЗСТ2</figcaption>
+</figure>
+<p>Якщо раніше ми розглядали відрізок на двох точках, який ми розбивали на два нових відрізка, то тепер, ми працюємо з квадратом, який ми маємо розбити на чотири нових. Для цього нам потрібно знайти одну точку в центрі квадрата, та чотири - на ребрах. Значення центральної точки дорівнює середньому арифметичному значень кутових точок плюс зміщення. Зміщення шукається так само як і в оригінальній версії алгоритму. Значення ж точок на ребрах — це середнє значення <strong>двох</strong> точок на прилеглих до ребра кутах плюс зміщення.</p>
 <p>Мовою GDScript це можна записати ось так:</p>
-<pre><code><span class="word">func</span> generate(subdivisions: int, roughness: float, land_seed: int) -&gt; Array:
-	<span class="word">var</span> rng = RandomNumberGenerator.new()
-	rng.seed = land_seed
+<pre><code>func generate(subdivisions: <span class='w'>int</span>, roughness: <span class='w'>float</span>, land_seed: <span class='w'>int</span>) -&gt; Array:
+    var rng = RandomNumberGenerator.new()
+    rng.seed = land_seed
 
-	<span class="comment">#розмір одної сторони отриманого шматка землі</span>
-	<span class="word">var</span> p_size = pow(2, subdivisions) + 1
+    #розмір одної сторони отриманого шматка землі
+    var p_size = pow(2, subdivisions) + 1
 
-	<span class="comment">#підготовка масиву масивів чисел</span>
-	<span class="word">var</span> map = []
-	<span class="word">for</span> x <span class="word">in</span> p_size:
-		map.append([])
-		<span class="word">for</span> y <span class="word">in</span> p_size:
-			map[x].append(0)
+    #підготовка масиву масивів чисел
+    var map = []
+    <span class='w'>for</span> x in p_size:
+        map.append([])
+        <span class='w'>for</span> y in p_size:
+            map[x].append(0)
 
-	<span class="word">while</span> subdivisions &gt; 1:
-		subdivisions -= 1
-		<span class="word">var</span> i  = int(pow(2, subdivisions - 1))
+    <span class='w'>while</span> subdivisions &gt; 1:
+        subdivisions -= 1
+        var i  = <span class='w'>int</span>(pow(2, subdivisions - 1))
 
-		<span class="comment"># центри</span>
-		<span class="word">for</span> x <span class="word">in</span> range(i, p_size - i, i * 2):
-			<span class="word">for</span> y <span class="word">in</span> range(i, p_size - i, i * 2):
-				map[x][y] = (map[x-i][y-i] + map[x-i][y+i] + map[x+i][y-i] + map[x+i][y+i]) * 0.25
-				map[x][y] += rng.randfn() * roughness
+        # центри
+        <span class='w'>for</span> x in range(i, p_size - i, i * 2):
+            <span class='w'>for</span> y in range(i, p_size - i, i * 2):
+                map[x][y] = (map[x-i][y-i] + map[x-i][y+i] + map[x+i][y-i] + map[x+i][y+i]) * 0.25
+                map[x][y] += rng.randfn() * roughness
 
-		<span class="comment">#вертикалі</span>
-		<span class="word">for</span> x <span class="word">in</span> range(0, p_size, i * 2):
-			<span class="word">for</span> y <span class="word">in</span> range(i, p_size - i, i * 2):
-				map[x][y] = (map[x][y+i] + map[x][y-i]) * 0.5
-				map[x][y] += rng.randfn() * roughness
+        #вертикалі
+        <span class='w'>for</span> x in range(0, p_size, i * 2):
+            <span class='w'>for</span> y in range(i, p_size - i, i * 2):
+                map[x][y] = (map[x][y+i] + map[x][y-i]) * 0.5
+                map[x][y] += rng.randfn() * roughness
 
-		<span class="comment">#горизонталі</span>
-		<span class="word">for</span> x <span class="word">in</span> range(i, p_size - i, i * 2):
-			<span class="word">for</span> y <span class="word">in</span> range(0, p_size, i * 2):
-				map[x][y] = (map[x+i][y] + map[x-i][y]) * 0.5
-				map[x][y] += rng.randfn() * roughness
+        #горизонталі
+        <span class='w'>for</span> x in range(i, p_size - i, i * 2):
+            <span class='w'>for</span> y in range(0, p_size, i * 2):
+                map[x][y] = (map[x+i][y] + map[x-i][y]) * 0.5
+                map[x][y] += rng.randfn() * roughness
 
-		roughness *= 0.5
+        roughness *= 0.5
 
-	<span class="word">return</span> map
-</code></pre>
-<h3>Обмеження</h3>
-<p>З першого погляду на створену мапу видно, що алгоритм тяжіє до ортогональних ліній.
-Гірські хребти та долини простягаються прямо паралельно сторонам квадрата в якому вони знаходяться.
-До того ж, при підвищенні деталізації, поверхня стає все більш шершавою.
-Тому після генерації отриману поверхню варто якимось чином розгладити.</p>
-<p><img src="images/md-2d-top-view.webp" alt="Вид зверху на землю" />
-<img src="images/md2-top-view2.webp" alt="Вид зверху на землю" /></p>
-<h2>Власне алгоритм квадрата-ромба</h2>
-<h3>Вирішення проблем</h3>
-<p>Алгоритм зміщення серединної точки залишає багато прямих ліній на створеній карті.
-Так стається, тому що деякі точки беруть своє значення на основі значень чотирьох своїх сусідів,
-а деякі — лише двох.
-Алгоритм <em>квадрата-ромба</em> — це покращена версія алгоритму зміщення серединної точки,
-яка вирішує вище згадану проблему.</p>
-<p><img src="images/diamond-square.webp" alt="Алгоритм квадрата-ромба" /></p>
-<p>Кожна ітерація цього алгоритму проходить у два етапи:
-На першому ми знаходимо середини всіх квадратів,
-використовуючи значення всіх чотирьох кутів кожного з них.
-На другому — ми знаходимо точки на ребрах.
-Їх значення визначається на основі двох точок на кінцях ребра
-а також на основі двох центрів тих квадратів, що ділять це ребро.</p>
-<p>По краям карти, нашим точкам немає звідки взяти одну з чотирьох сусідніх точок.
-Існує декілька способів вирішити цю проблему.
-Можна просто проігнорувати четверту точку і взяти середнє арифметичне лише від трьох інших значень.
-Або можна вважати її значення рівним нулю чи будь-якому іншому числу.
-Або ж взяти значення точки з протилежного кінця карти.
-Тоді карта буде зацикленою.
-З точки зору топології така карта матиме форму тора.</p>
+    <span class='w'>return</span> map</code></pre>
+<h3 id="обмеження">Обмеження</h3>
+<p>З першого погляду на створену мапу видно, що алгоритм тяжіє до ортогональних ліній. Гірські хребти та долини простягаються прямо паралельно сторонам квадрата в якому вони знаходяться. До того ж, при підвищенні деталізації, поверхня стає все більш шершавою. Тому після генерації отриману поверхню варто якимось чином розгладити.</p>
+<p><img src="images/md-2d-top-view.webp" alt="Вид зверху на землю" /> <img src="images/md2-top-view2.webp" alt="Вид зверху на землю" /></p>
+<h2 id="власне-алгоритм-квадрата-ромба">Власне алгоритм квадрата-ромба</h2>
+<h3 id="вирішення-проблем">Вирішення проблем</h3>
+<p>Алгоритм зміщення серединної точки залишає багато прямих ліній на створеній карті. Так стається, тому що деякі точки беруть своє значення на основі значень чотирьох своїх сусідів, а деякі — лише двох. Алгоритм <em>квадрата-ромба</em> — це покращена версія алгоритму зміщення серединної точки, яка вирішує вище згадану проблему.</p>
+<figure>
+<img src="images/diamond-square.webp" alt="Алгоритм квадрата-ромба" /><figcaption aria-hidden="true">Алгоритм квадрата-ромба</figcaption>
+</figure>
+<p>Кожна ітерація цього алгоритму проходить у два етапи: На першому ми знаходимо середини всіх квадратів, використовуючи значення всіх чотирьох кутів кожного з них. На другому — ми знаходимо точки на ребрах. Їх значення визначається на основі двох точок на кінцях ребра а також на основі двох центрів тих квадратів, що ділять це ребро.</p>
+<p>По краям карти, нашим точкам немає звідки взяти одну з чотирьох сусідніх точок. Існує декілька способів вирішити цю проблему. Можна просто проігнорувати четверту точку і взяти середнє арифметичне лише від трьох інших значень. Або можна вважати її значення рівним нулю чи будь-якому іншому числу. Або ж взяти значення точки з протилежного кінця карти. Тоді карта буде зацикленою. З точки зору топології така карта матиме форму тора.</p>
 <p>В наведеному нижче коді використовується другий спосіб: точки за межами карти мають значення <strong>нуль</strong>.</p>
-<pre><code><span class="word">func</span> generate(subdivisions: int, roughness: float, land_seed: int) -&gt; Array:
-	<span class="word">var</span> rng = RandomNumberGenerator.new()
-	rng.seed = land_seed
+<pre><code>func generate(subdivisions: <span class='w'>int</span>, roughness: <span class='w'>float</span>, land_seed: <span class='w'>int</span>) -&gt; Array:
+    var rng = RandomNumberGenerator.new()
+    rng.seed = land_seed
 
-	<span class="comment">#розмір одної сторони отриманого шматка землі</span>
-	<span class="word">var</span> p_size = pow(2, subdivisions) + 1
-	<span class="comment">#підготовка масиву масивів чисел</span>
-	<span class="word">var</span> map = []
-	<span class="word">for</span> x <span class="word">in</span> p_size:
-		map.append([])
-		<span class="word">for</span> y <span class="word">in</span> p_size:
-			map[x].append(0)
+    #розмір одної сторони отриманого шматка землі
+    var p_size = pow(2, subdivisions) + 1
+    #підготовка масиву масивів чисел
+    var map = []
+    <span class='w'>for</span> x in p_size:
+        map.append([])
+        <span class='w'>for</span> y in p_size:
+            map[x].append(0)
 
-	<span class="word">while</span> subdivisions &gt; 1:
-		subdivisions -= 1
-		<span class="word">var</span> i  = int(pow(2, subdivisions - 1))
+    <span class='w'>while</span> subdivisions &gt; 1:
+        subdivisions -= 1
+        var i  = <span class='w'>int</span>(pow(2, subdivisions - 1))
 
-		<span class="comment"># квадрати</span>
-		<span class="word">for</span> x <span class="word">in</span> range(i, p_size - i, i * 2):
-			<span class="word">for</span> y <span class="word">in</span> range(i, p_size - i, i * 2):
-				map[x][y] = (map[x-i][y-i] + map[x-i][y+i] + map[x+i][y-i] + map[x+i][y+i]) * 0.25
-				map[x][y] += rng.randfn() * roughness
+        # квадрати
+        <span class='w'>for</span> x in range(i, p_size - i, i * 2):
+            <span class='w'>for</span> y in range(i, p_size - i, i * 2):
+                map[x][y] = (map[x-i][y-i] + map[x-i][y+i] + map[x+i][y-i] + map[x+i][y+i]) * 0.25
+                map[x][y] += rng.randfn() * roughness
 
-		<span class="comment"># ромби</span>
-		<span class="word">var</span> allow: bool = <span class="word">false</span> <span class="comment"># дозволяє операції через раз</span>
-		<span class="word">for</span> x <span class="word">in</span> range(0, p_size, i):
-			<span class="word">for</span> y <span class="word">in</span> range(0, p_size, i):
-				<span class="word">if</span> allow:
-					<span class="word">if</span> x &gt; 0:
-						map[x][y] += map[x-i][y]
-					<span class="word">if</span> x &lt; p_size - 1:
-						map[x][y] += map[x+i][y]
-					<span class="word">if</span> y &gt; 0:
-						map[x][y] += map[x][y-i]
-					<span class="word">if</span> y &lt; p_size - 1:
-						map[x][y] += map[x][y+i]
+        # ромби
+        var allow: bool = false # дозволяє операції через раз
+        <span class='w'>for</span> x in range(0, p_size, i):
+            <span class='w'>for</span> y in range(0, p_size, i):
+                <span class='w'>if</span> allow:
+                    <span class='w'>if</span> x &gt; 0:
+                        map[x][y] += map[x-i][y]
+                    <span class='w'>if</span> x &lt; p_size - 1:
+                        map[x][y] += map[x+i][y]
+                    <span class='w'>if</span> y &gt; 0:
+                        map[x][y] += map[x][y-i]
+                    <span class='w'>if</span> y &lt; p_size - 1:
+                        map[x][y] += map[x][y+i]
 
-					map[x][y] *= 0.25
-					map[x][y] += rng.randfn() * roughness
-				allow = !allow
+                    map[x][y] *= 0.25
+                    map[x][y] += rng.randfn() * roughness
+                allow = !allow
 
-		roughness *= 0.5
+        roughness *= 0.5
 
-	<span class="word">return</span> map
-</code></pre>
-<h3>Особливості отриманих земель</h3>
-<p>Землі, отримані в такий спосіб, не мають чітко виражених прямих ліній.
-Але й вони мають свої вади.</p>
-<p><img src="images/ds-top-view.webp" alt="Алгоритм квадрата-ромба" /></p>
-<p>По перше, якщо вирішити проблему країв мапи, в той спосіб, який використаний у коді вище,
-то по краям можуть утворитись ось такі дивні артефакти:</p>
-<p><img src="images/ds-wierd-border.webp" alt="Алгоритм квадрата-ромба" /></p>
-<p>Ну і навіть ця, найкраща форма алгоритму не вирішує проблему шершавості.
-Ба більше, землі, створені нею, навіть шершавіші.
-А значить, утворену поверхню просто необхідно розгладити.</p>
-<p>Найпростіший спосіб це зробити — піднести значення точок до квадрату.
-Від цього гори стануть крутішими а рівнини — пологішими,
-також, щоб гірські піки не здіймалися вже зовсім високо,
-потрібно зжати всі точки так, щоб значення їх висот знаходились в межах від 0 до 1.</p>
+    <span class='w'>return</span> map</code></pre>
+<h3 id="особливості-отриманих-земель">Особливості отриманих земель</h3>
+<p>Землі, отримані в такий спосіб, не мають чітко виражених прямих ліній. Але й вони мають свої вади.</p>
+<figure>
+<img src="images/ds-top-view.webp" alt="Алгоритм квадрата-ромба" /><figcaption aria-hidden="true">Алгоритм квадрата-ромба</figcaption>
+</figure>
+<p>По перше, якщо вирішити проблему країв мапи, в той спосіб, який використаний у коді вище, то по краям можуть утворитись ось такі дивні артефакти:</p>
+<figure>
+<img src="images/ds-wierd-border.webp" alt="Алгоритм квадрата-ромба" /><figcaption aria-hidden="true">Алгоритм квадрата-ромба</figcaption>
+</figure>
+<p>Ну і навіть ця, найкраща форма алгоритму не вирішує проблему шершавості. Ба більше, землі, створені нею, навіть шершавіші. А значить, утворену поверхню просто необхідно розгладити.</p>
+<p>Найпростіший спосіб це зробити — піднести значення точок до квадрату. Від цього гори стануть крутішими а рівнини — пологішими, також, щоб гірські піки не здіймалися вже зовсім високо, потрібно зжати всі точки так, щоб значення їх висот знаходились в межах від 0 до 1.</p>
 <p>Погравшись зі значеннями я зміг отримати ландшафт, схожий на аерофотозйомку поверхні Марса.</p>
-<p><img src="images/mars-land.webp" alt="Алгоритм квадрата-ромба" /></p>
-
-<div class="cycle-reference"> Стаття з циклу: <a href="index.html#ctvorennia-landshaftu">Створення ландшафту</a> </div>
+<figure>
+<img src="images/mars-land.webp" alt="Алгоритм квадрата-ромба" /><figcaption aria-hidden="true">Алгоритм квадрата-ромба</figcaption>
+</figure>
+		<div class="cycle-reference"> Стаття з циклу: <a href="index.html#stvorennia-landshaftu">Створення ландшафту</a> </div>
 <nav>
-    
-    
+	
+	
 </nav>
-
 		</main>
 		<footer>
 			<div>
@@ -231,7 +187,8 @@
 				<ul>
 					<li>
 						<a href="https://privatbank.ua/sendmoney?payment=4f11f2ed6d">
-							<img class="icon" alt="privat" src="images/privat.svg">ПриватБанк Sendmoney
+							<img class="icon" alt="privat" src="images/privat.svg">
+							ПриватБанк Sendmoney
 						</a>
 					</li>
 				</ul>
@@ -241,7 +198,8 @@
 				<ul>
 					<li>
 						<a href="mailto:sergiyhelp@gmail.com">
-							<img class="icon" alt="email" src="images/email.svg">sergiyhelp@gmail.com
+							<img class="icon" alt="email" src="images/email.svg">
+							sergiyhelp@gmail.com
 						</a>
 					</li>
 				</ul>
@@ -251,7 +209,8 @@
 				<ul>
 					<li>
 						<a href="https://t.me/prykoliakhy">
-							<img class="icon" alt="tg" src="images/telegram.svg">Telegram
+							<img class="icon" alt="tg" src="images/telegram.svg">
+							Telegram
 						</a>
 					</li>
 				</ul>

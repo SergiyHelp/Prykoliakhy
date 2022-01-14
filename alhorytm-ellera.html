@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html>
-	<head lang="uk">
+<html lang="uk">
+	<head>
 		<meta charset="utf-8"/>
 		<title>Алгоритм Еллера</title>
-		<style>
-:root { --accent: #fabd2f; }
-		</style>
+		<style>:root { --accent: #458588 }</style>
 		<link rel="stylesheet" href="style.css">
 		<link rel="icon" href="images/icon.svg">
-		<meta name="author" content="serhiy help">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="
 					Інтернет журнал зі статтями на різні цікаві теми:
@@ -16,163 +13,149 @@
 	</head>
 	<body>
 		<header>
-			<a href="index.html"><img src="images/icon.svg" alt="На головну" height=30em /></a>
+			<a href="index.html"><img id="logo" src="images/icon.svg" alt="На головну" height=30em /></a>
 		</header>
 		<main>
-			<h1>Алгоритм Еллера</h1>
-<h2>Суть алгоритму</h2>
-<h3>Що це таке?</h3>
-<p>Алгоритм еллера — це алгоритм для генерації <em>ідеальних лабіринтів</em>.
-Ідеальними лабіринтами називають такі, які не мають закритих областей
-(таких в які не можна потрапити з іншої частини лабіринту)
-та циклів (тобто, між будь-якими двома точками є лише один можливий шлях).</p>
-<h3>Як працює алгоритм</h3>
-<p>Алгоритм створює лабіринт рядок за рядком.
-Для кожної клітинки потрібно знати,
-чи має вона стінку знизу та стінку справа,
-а також групу, до якої вона належить.
-Про стінки зліва та зверху знати не потрібно,
-так як верхня стінка - це нижня стінка клітинки вище й ліва стінка - це права для лівої клітинки відповідно.
-Для найвищих та найлівіших клітинок ми приймемо, що всі вони мають стінки зверху та зліва.</p>
-<p>Спершу, створімо перший ряд, і назначмо кожній клітинці в ньому свою унікальну групу:
-<img src="images/eller-1.webp" alt="Перший ряд з унікальними групами" />
-Після цього, рухаючись з ліва на право, розмістімо стінки справа.
-Для кожної пари клітинок ми можемо прийняти рішення, ставити там стінку чи ні.
-Якщо ми вирішили не ставити стінку між клітинками, то повинні об'єднати їх групи.
-Для останної клітинки ми зобор'язані поставити стінку справа:
-<img src="images/eller-2.webp" alt="Перший ряд із стінками та об'єднаними групами" />
-Тепер, розставімо нижні стінки.
-Кожна група повинна мати хоч одну дірку знизу, інакше утвориться закрита зона:
-<img src="images/eller-3.webp" alt="Перший ряд із нижніми стінками" />
-Після цього зкопіюймо групи до нижнього ряду, але лише там де клітинки не мають стінок знизу:
-<img src="images/eller-4.webp" alt="Другий ряд з копіями груп" />
-Тим же клітинкам, які залишились назначмо нові групи:
-<img src="images/eller-5.webp" alt="Другий ряд, повністю заповнений групами" />
-Після цього, як і в пепередньому рядку, знову розставімо стінки справа.
-І якщо дві сусідні клітинки мають різні групи, то ми або можемо поставити між ними стінку:
-<img src="images/eller-6.webp" alt="Можлива стінка зліва" />
-або можемо об'єднати їх в одну групу:
-<img src="images/eller-7.webp" alt="Стінка не поставлена" />
-Якщо ж сусідні клітинки належать до однієї групи:
-<img src="images/eller-8.webp" alt="Можлива стінка 2" />
-то ми <strong>зобов'язані</strong> поставити між ними стінку, щоб в лабіринті ну утворився цикл:
-<img src="images/eller-9.webp" alt="Стінка поставлена" />
-Після цього нам знову потрібно розставити нижні стінки.
-Не забувайте, що кожна група повинна мати хоч одну дірку знизу:
-<img src="images/eller-10.webp" alt="Стінки знизу в другому рядку" />
-Також, візьміть до уваги, якщо ми хочемо об'єднати дві групи потрібно змінити групу у всіх клітинках
-які належать до групи яку ми хочемо приєднати.
-На відміну від того, що показано на зображенні вам не потрібно змінювати групи в попередніх рядках.
-Проте потрібно змінити всі клітинки в ряді з яким ми зараз працюємо.
-Себто, якби в третьому рядку було декілька клітинок <strong>першої групи</strong>,
-ми повинні були б приєднати їх усіх до <strong>сьомої</strong>:
-<img src="images/eller-11.webp" alt="Можна об'єднати групи" />
-<img src="images/eller-12.webp" alt="Групи об'єднані" />
-Таким чином ми можемо продовжувати безкінечно, додаючи нові ряди:
-<img src="images/eller-13.webp" alt="Третій ряд закфнчений" />
-Якщо ж ми хочемо закінчити лабіринт,
-то тепер, в останньому рядку, ми повинні завжди об'єднувати дві сусідні групи, якщо вони різні.
-Та завжди ставити між клітинками стінку якщо їх групи однакові:
-<img src="images/eller-14.webp" alt="Останній ряд без стінок" />
-Так як нижній ряд останній в лабіринті, кожна клітинка в ньому повинна мати стінку знизу:
-<img src="images/eller-15.webp" alt="Закінчений лабіринт" /></p>
-<h2>Реалізація</h2>
+
+		<h1 id="алгоритм-еллера">Алгоритм Еллера</h1>
+<h2 id="суть-алгоритму">Суть алгоритму</h2>
+<h3 id="що-це-таке">Що це таке?</h3>
+<p>Алгоритм еллера — це алгоритм для генерації <em>ідеальних лабіринтів</em>. Ідеальними лабіринтами називають такі, які не мають закритих областей (таких в які не можна потрапити з іншої частини лабіринту) та циклів (тобто, між будь-якими двома точками є лише один можливий шлях).</p>
+<h3 id="як-працює-алгоритм">Як працює алгоритм</h3>
+<p>Алгоритм створює лабіринт рядок за рядком. Для кожної клітинки потрібно знати, чи має вона стінку знизу та стінку справа, а також групу, до якої вона належить. Про стінки зліва та зверху знати не потрібно, так як верхня стінка - це нижня стінка клітинки вище й ліва стінка - це права для лівої клітинки відповідно. Для найвищих та найлівіших клітинок ми приймемо, що всі вони мають стінки зверху та зліва.</p>
+<p>Спершу, створімо перший ряд, і назначмо кожній клітинці в ньому свою унікальну групу:</p>
+<figure>
+<img src="images/eller-1.webp" alt="Перший ряд з унікальними групами" /><figcaption aria-hidden="true">Перший ряд з унікальними групами</figcaption>
+</figure>
+<p>Після цього, рухаючись з ліва на право, розмістімо стінки справа. Для кожної пари клітинок ми можемо прийняти рішення, ставити там стінку чи ні. Якщо ми вирішили не ставити стінку між клітинками, то повинні об’єднати їх групи. Для останної клітинки ми зобор’язані поставити стінку справа:</p>
+<figure>
+<img src="images/eller-2.webp" alt="Перший ряд із стінками та об’єднаними групами" /><figcaption aria-hidden="true">Перший ряд із стінками та об’єднаними групами</figcaption>
+</figure>
+<p>Тепер, розставімо нижні стінки. Кожна група повинна мати хоч одну дірку знизу, інакше утвориться закрита зона:</p>
+<figure>
+<img src="images/eller-3.webp" alt="Перший ряд із нижніми стінками" /><figcaption aria-hidden="true">Перший ряд із нижніми стінками</figcaption>
+</figure>
+<p>Після цього зкопіюймо групи до нижнього ряду, але лише там де клітинки не мають стінок знизу:</p>
+<figure>
+<img src="images/eller-4.webp" alt="Другий ряд з копіями груп" /><figcaption aria-hidden="true">Другий ряд з копіями груп</figcaption>
+</figure>
+<p>Тим же клітинкам, які залишились назначмо нові групи:</p>
+<figure>
+<img src="images/eller-5.webp" alt="Другий ряд, повністю заповнений групами" /><figcaption aria-hidden="true">Другий ряд, повністю заповнений групами</figcaption>
+</figure>
+<p>Після цього, як і в пепередньому рядку, знову розставімо стінки справа. І якщо дві сусідні клітинки мають різні групи, то ми або можемо поставити між ними стінку:</p>
+<figure>
+<img src="images/eller-6.webp" alt="Можлива стінка зліва" /><figcaption aria-hidden="true">Можлива стінка зліва</figcaption>
+</figure>
+<p>або можемо об’єднати їх в одну групу:</p>
+<figure>
+<img src="images/eller-7.webp" alt="Стінка не поставлена" /><figcaption aria-hidden="true">Стінка не поставлена</figcaption>
+</figure>
+<p>Якщо ж сусідні клітинки належать до однієї групи:</p>
+<figure>
+<img src="images/eller-8.webp" alt="Можлива стінка 2" /><figcaption aria-hidden="true">Можлива стінка 2</figcaption>
+</figure>
+<p>то ми <strong>зобов’язані</strong> поставити між ними стінку, щоб в лабіринті ну утворився цикл:</p>
+<figure>
+<img src="images/eller-9.webp" alt="Стінка поставлена" /><figcaption aria-hidden="true">Стінка поставлена</figcaption>
+</figure>
+<p>Після цього нам знову потрібно розставити нижні стінки. Не забувайте, що кожна група повинна мати хоч одну дірку знизу:</p>
+<figure>
+<img src="images/eller-10.webp" alt="Стінки знизу в другому рядку" /><figcaption aria-hidden="true">Стінки знизу в другому рядку</figcaption>
+</figure>
+<p>Також, візьміть до уваги, якщо ми хочемо об’єднати дві групи потрібно змінити групу у всіх клітинках які належать до групи яку ми хочемо приєднати. На відміну від того, що показано на зображенні вам не потрібно змінювати групи в попередніх рядках. Проте потрібно змінити всі клітинки в ряді з яким ми зараз працюємо. Себто, якби в третьому рядку було декілька клітинок <strong>першої групи</strong>, ми повинні були б приєднати їх усіх до <strong>сьомої</strong>:</p>
+<p><img src="images/eller-11.webp" alt="Можна об’єднати групи" /> <img src="images/eller-12.webp" alt="Групи об’єднані" /></p>
+<p>Таким чином ми можемо продовжувати безкінечно, додаючи нові ряди:</p>
+<figure>
+<img src="images/eller-13.webp" alt="Третій ряд закфнчений" /><figcaption aria-hidden="true">Третій ряд закфнчений</figcaption>
+</figure>
+<p>Якщо ж ми хочемо закінчити лабіринт, то тепер, в останньому рядку, ми повинні завжди об’єднувати дві сусідні групи, якщо вони різні. Та завжди ставити між клітинками стінку якщо їх групи однакові:</p>
+<figure>
+<img src="images/eller-14.webp" alt="Останній ряд без стінок" /><figcaption aria-hidden="true">Останній ряд без стінок</figcaption>
+</figure>
+<p>Так як нижній ряд останній в лабіринті, кожна клітинка в ньому повинна мати стінку знизу:</p>
+<figure>
+<img src="images/eller-15.webp" alt="Закінчений лабіринт" /><figcaption aria-hidden="true">Закінчений лабіринт</figcaption>
+</figure>
+<h2 id="реалізація">Реалізація</h2>
 <p>Ось моя реалізація алгоритму на мові GDscript:</p>
-<pre><code><span class="word">func</span> eller(rows: int, cols: int) -&gt; Array:
-	<span class="word">var</span> maze = create_array2D(rows, cols)
-	<span class="word">var</span> free_group = 0
+<pre><code>func eller(rows: <span class='w'>int</span>, cols: <span class='w'>int</span>) -&gt; Array:
+    var maze = create_array2D(rows, cols)
+    var free_group = 0
 
-	<span class="word">for</span> i <span class="word">in</span> rows:
-		<span class="word">var</span> row = maze[i]
+    <span class='w'>for</span> i in rows:
+        var row = maze[i]
 
-		<span class="comment"># Спершу, потрібно заповнити ряд групами</span>
-		<span class="word">if</span> i == 0:  <span class="comment"># Якщо це перший рядок: зоповнити його повністю новими значеннями</span>
-			<span class="word">for</span> j <span class="word">in</span> cols:
-				row[j].group = free_group
-				free_group += 1
-		<span class="word">else</span>:   <span class="comment"># Інакше, копіювати групи з попереднього рядка там, де немає нижньої стінки.</span>
-			<span class="word">for</span> j <span class="word">in</span> cols:
-				<span class="word">if</span> maze[i - 1][j].has_bottom_wall:
-					row[j].group = free_group
-					free_group += 1
-				<span class="word">else</span>:   <span class="comment"># Клітинки, які залишились, заповнити новими групами</span>
-					row[j].group = maze[i - 1][j].group
+        # Спершу, потрібно заповнити ряд групами
+        <span class='w'>if</span> i == 0:  # Якщо це перший рядок: зоповнити його повністю новими значеннями
+            <span class='w'>for</span> j in cols:
+                row[j].group = free_group
+                free_group += 1
+        <span class='w'>else</span>:   # Інакше, копіювати групи з попереднього рядка там, де немає нижньої стінки.
+            <span class='w'>for</span> j in cols:
+                <span class='w'>if</span> maze[i - 1][j].has_bottom_wall:
+                    row[j].group = free_group
+                    free_group += 1
+                <span class='w'>else</span>:   # Клітинки, які залишились, заповнити новими групами
+                    row[j].group = maze[i - 1][j].group
 
-		<span class="comment"># Потім - додати бокові стінки</span>
-		<span class="word">for</span> j <span class="word">in</span> cols:
-			<span class="comment"># Додати стінку якщо:</span>
-			<span class="comment"># це остання клітинка</span>
-			<span class="comment"># АБО наступна клітинка має таку ж групу</span>
-			<span class="comment"># АБО випадково ПРИ УМОВІ що це не останній рядок</span>
-			<span class="word">if</span> j == cols - 1 || row[j].group == row[j + 1].group || (i &lt; rows - 1 &amp;&amp; deside()):
-				row[j].has_right_wall = <span class="word">true</span>
-			<span class="word">else</span>:
-				<span class="word">var</span> target_group = row[j + 1].group
-				<span class="word">for</span> x <span class="word">in</span> cols:
-					<span class="word">if</span> row[x].group == target_group:
-						row[x].group = row[j].group
+        # Потім - додати бокові стінки
+        <span class='w'>for</span> j in cols:
+            # Додати стінку якщо:
+            # це остання клітинка
+            # АБО наступна клітинка має таку ж групу
+            # АБО випадково ПРИ УМОВІ що це не останній рядок
+            <span class='w'>if</span> j == cols - 1 || row[j].group == row[j + 1].group || (i &lt; rows - 1 &amp;&amp; deside()):
+                row[j].has_right_wall = true
+            <span class='w'>else</span>:
+                var target_group = row[j + 1].group
+                <span class='w'>for</span> x in cols:
+                    <span class='w'>if</span> row[x].group == target_group:
+                        row[x].group = row[j].group
 
-		<span class="comment"># І додати стінки знизу</span>
-		<span class="word">if</span> i &lt; rows - 1:
-			<span class="word">for</span> j <span class="word">in</span> cols:
-				<span class="word">if</span> row[j].has_right_wall:
-					<span class="word">var</span> group_has_hole = <span class="word">false</span>
-					<span class="word">for</span> x <span class="word">in</span> j:
-						<span class="word">if</span> row[x].has_bottom_wall == <span class="word">false</span> &amp;&amp; row[x].group == row[j].group:
-							group_has_hole = <span class="word">true</span>
-					row[j].has_bottom_wall = deside() <span class="word">if</span> group_has_hole <span class="word">else</span> <span class="word">false</span>
-					group_has_hole = <span class="word">false</span>
-				<span class="word">elif</span> deside():
-					row[j].has_bottom_wall = <span class="word">true</span>
-		<span class="word">else</span>:
-			<span class="word">for</span> j <span class="word">in</span> cols:
-				row[j].has_bottom_wall = <span class="word">true</span>
-	<span class="word">return</span> maze
-</code></pre>
+        # І додати стінки знизу
+        <span class='w'>if</span> i &lt; rows - 1:
+            <span class='w'>for</span> j in cols:
+                <span class='w'>if</span> row[j].has_right_wall:
+                    var group_has_hole = false
+                    <span class='w'>for</span> x in j:
+                        <span class='w'>if</span> row[x].has_bottom_wall == false &amp;&amp; row[x].group == row[j].group:
+                            group_has_hole = true
+                    row[j].has_bottom_wall = deside() <span class='w'>if</span> group_has_hole <span class='w'>else</span> false
+                    group_has_hole = false
+                elif deside():
+                    row[j].has_bottom_wall = true
+        <span class='w'>else</span>:
+            <span class='w'>for</span> j in cols:
+                row[j].has_bottom_wall = true
+    <span class='w'>return</span> maze</code></pre>
 <p>У цьому коді, клітинка лабіринту описується ось таким класом:</p>
-<pre><code><span class="word">class</span> MazeCell:
-	<span class="word">extends</span> Reference
+<pre><code>class MazeCell:
+    extends Reference
 
-	<span class="word">export</span> <span class="word">var</span> group : int
-	<span class="word">export</span> <span class="word">var</span> has_bottom_wall : bool
-	<span class="word">export</span> <span class="word">var</span> has_right_wall : bool
-</code></pre>
-<p>Окрім цього, я використовую дві прості функції.
-Одна, повертає значення <code><span class="word">true</span></code> з імовірністю 50%:</p>
-<pre><code><span class="word">func</span> deside() -&gt; bool:
-	<span class="word">return</span> randf() &gt; 0.5
-</code></pre>
+    export var group : <span class='w'>int</span>
+    export var has_bottom_wall : bool
+    export var has_right_wall : bool</code></pre>
+<p>Окрім цього, я використовую дві прості функції. Одна, повертає значення <code>true</code> з імовірністю 50%:</p>
+<pre><code>func deside() -&gt; bool:
+    <span class='w'>return</span> randf() &gt; 0.5</code></pre>
 <p>А інша - займається створенням масиву масивів клітинок, який і буде нашим лабіринтом:</p>
-<pre><code><span class="word">func</span> create_array2D(rows: int, cols: int) -&gt; Array:
-	<span class="word">var</span> arr = []
-	<span class="word">for</span> i <span class="word">in</span> rows:
-		arr.append([])
-		<span class="word">for</span> j <span class="word">in</span> cols:
-			arr[i].append(MazeCell.new())
-	<span class="word">return</span> arr
-</code></pre>
-<h2>Висновок</h2>
-<p>Алгоритм еллера створює лабіринти високої якості.
-Ось декілька прикладів:</p>
-<p><img src="images/eller-maze.webp" alt="Більший лабіринт" />
-<img src="images/eller-maze2.webp" alt="Менший лабіринт" /></p>
-<p>Алгоритм працює досить швидко, а створені ним лабіринти не мають всіляких артефактів чи очевидних шляхів.
-Також, так як для роботи алгоритму потрібно знати лише попередній ряд,
-алгоритм підходить для створення безкінечних лабіринтів.
-Принаймні, безкінечних в одному напрямку.
-Таким чином можна, на приклад, зробити генерацію безконечного підземелля для гри платформера.
-Також, можна генерувати нові рядки в обидва боки,
-тоді лабіринт буде повністю безконечним по-вертикалі.
-Або, зробити радіальний лабіринт, де замість рядків будуть генеруватись кільця.
-Тоді лабіринт буде нескінченним у всіх напрямках.</p>
-
-<div class="cycle-reference"> Стаття з циклу: <a href="index.html#ctvorennia-labiryntiv">Створення лабіринтів</a> </div>
+<pre><code>func create_array2D(rows: <span class='w'>int</span>, cols: <span class='w'>int</span>) -&gt; Array:
+    var arr = []
+    <span class='w'>for</span> i in rows:
+        arr.append([])
+        <span class='w'>for</span> j in cols:
+            arr[i].append(MazeCell.new())
+    <span class='w'>return</span> arr</code></pre>
+<h2 id="висновок">Висновок</h2>
+<p>Алгоритм еллера створює лабіринти високої якості. Ось декілька прикладів:</p>
+<p><img src="images/eller-maze.webp" alt="Більший лабіринт" /> <img src="images/eller-maze2.webp" alt="Менший лабіринт" /></p>
+<p>Алгоритм працює досить швидко, а створені ним лабіринти не мають всіляких артефактів чи очевидних шляхів. Також, так як для роботи алгоритму потрібно знати лише попередній ряд, алгоритм підходить для створення безкінечних лабіринтів. Принаймні, безкінечних в одному напрямку. Таким чином можна, на приклад, зробити генерацію безконечного підземелля для гри платформера. Також, можна генерувати нові рядки в обидва боки, тоді лабіринт буде повністю безконечним по-вертикалі. Або, зробити радіальний лабіринт, де замість рядків будуть генеруватись кільця. Тоді лабіринт буде нескінченним у всіх напрямках.</p>
+		<div class="cycle-reference"> Стаття з циклу: <a href="index.html#stvorennia-labiryntiv">Створення лабіринтів</a> </div>
 <nav>
-    
-    <a class="btn" href="rekurcyvnyi-poshuk-z-povernenniam.html">Наступна стаття</a>
-
+	
+	<a class="btn" href="rekursyvnyi-poshuk-z-povernenniam.html">Наступна стаття</a>
 </nav>
-
 		</main>
 		<footer>
 			<div>
@@ -180,7 +163,8 @@
 				<ul>
 					<li>
 						<a href="https://privatbank.ua/sendmoney?payment=4f11f2ed6d">
-							<img class="icon" alt="privat" src="images/privat.svg">ПриватБанк Sendmoney
+							<img class="icon" alt="privat" src="images/privat.svg">
+							ПриватБанк Sendmoney
 						</a>
 					</li>
 				</ul>
@@ -190,7 +174,8 @@
 				<ul>
 					<li>
 						<a href="mailto:sergiyhelp@gmail.com">
-							<img class="icon" alt="email" src="images/email.svg">sergiyhelp@gmail.com
+							<img class="icon" alt="email" src="images/email.svg">
+							sergiyhelp@gmail.com
 						</a>
 					</li>
 				</ul>
@@ -200,7 +185,8 @@
 				<ul>
 					<li>
 						<a href="https://t.me/prykoliakhy">
-							<img class="icon" alt="tg" src="images/telegram.svg">Telegram
+							<img class="icon" alt="tg" src="images/telegram.svg">
+							Telegram
 						</a>
 					</li>
 				</ul>

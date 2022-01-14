@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="uk">
+	<head>
+		<meta charset="utf-8"/>
+		<title>Рекурсивний пошук з поверненням</title>
+		<style>:root { --accent: #b8bb26 }</style>
+		<link rel="stylesheet" href="style.css">
+		<link rel="icon" href="images/icon.svg">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="
+					Інтернет журнал зі статтями на різні цікаві теми:
+					програмування, алгоритми, процедурне генерування, математика, геометрія.">
+	</head>
+	<body>
+		<header>
+			<a href="index.html"><img id="logo" src="images/icon.svg" alt="На головну" height=30em /></a>
+		</header>
+		<main>
+
+		<h1 id="рекурсивний-пошук-з-поверненням">Рекурсивний пошук з поверненням</h1>
+<h2 id="що-це">Що це?</h2>
+<p>Рекурсивний пошук з поверненням (Reverce backtracking) — це чи не найпростіший алгоритм для генерації ідеальних лабіринтів. Лабіринти, які він утворює мають довші ходи у порівнянні з <em>алгоритмом Еллера</em>. Окрім того, алгоритм з легкістю можна модифікувати для генерації лабіринтів з розмірністю вищою ніж 2D, чи лабіринтів на неквадратній сітці. Проте, він зовсім не підходить для генерації безкінечних лабіринтів.</p>
+<p>Ось декілька лабіринтів, створених цим алгоритмом:</p>
+<p><img src="images/backtrack-maze-10.webp" alt="Лабіринт 10х10" /> <img src="images/backtrack-maze-20.webp" alt="Лабіринт 20х20" /> <img src="images/backtrack-maze-40.webp" alt="Лабіринт 40х40" /></p>
+<h2 id="алгоритм">Алгоритм</h2>
+<p>На початку роботи всі клітинки в нашому лабіринті закриті стінками. В процесі виконання ми будемо прорізати крізь них ходи. Для цього алгоритм використовує покажчик на певну клітинку. Для зручності, назвімо його, наприклад, <em>щуром</em>.</p>
+<figure>
+<img src="images/backtrack-01.webp" alt="Щур на початковій позиції" /><figcaption aria-hidden="true">Щур на початковій позиції</figcaption>
+</figure>
+<p>Наш щур рухається по лабіринту, переміщаючись на сусідні клітинки, на яких він ще не був. При цьому він руйнує стінку між ними. Клітинки, які вже були відвідані потрібно якось позначати. В цьому прикладі вони замальовані трохи темнішим кольором. Окрім того, щур пам’ятає свій пройдений шлях, як стек куди він заносить відвідані клітинки (<em>стек шляху</em>). На зображеннях шлях щура зображений як коричнева лінія.</p>
+<p>На кожному своєму кроці щур оглядає чотири навколишні клітинки, та випадково обирає одну, серед тих, до яких він ще не заходив. Він руйнує стінку в тому напрямку та переміщується на обрану клітинку. А клітинку, яку він щойно залишив, додає до <em>стеку шляху</em>.</p>
+<figure>
+<img src="images/backtrack-02.webp" alt="Щур та його шлях" /><figcaption aria-hidden="true">Щур та його шлях</figcaption>
+</figure>
+<p>Якщо ж щуру немає куди йти, так як усі сусідні клітинки зайняті, то він рухається назад звідки він прийшов, та відкидає ці клітинки зі <em>стеку шляху</em>. Так, він рухається задом на перед, до тих пір, поки знову не знайде клітинку, біля якої є ще не відвідані клітинки, та піде в одну з них.</p>
+<figure>
+<img src="images/backtrack-03.webp" alt="Щур повертається назад" /><figcaption aria-hidden="true">Щур повертається назад</figcaption>
+</figure>
+<p>Після багаторазових проходжень та повернень назад, щур врешті-решт повернеться до самого початку лабіринту, а його <em>стек шляху</em> буде порожнім. Це й буде свідчити про те, що алгоритм завершив свою роботу.</p>
+<figure>
+<img src="images/backtrack-04.webp" alt="Щур блукає по лабіринту" /><figcaption aria-hidden="true">Щур блукає по лабіринту</figcaption>
+</figure>
+<figure>
+<img src="images/backtrack-05.webp" alt="Закінчений лабіринт" /><figcaption aria-hidden="true">Закінчений лабіринт</figcaption>
+</figure>
+<h2 id="програмний-код">Програмний код</h2>
+<p>Нижче наведена моє виконання цього алгоритму на мові C.</p>
+<pre><code><span class='w'>void</span> maze(<span class='w'>const</span> <span class='w'>int</span> width, <span class='w'>const</span> <span class='w'>int</span> height, Cell map[width][height])
+{
+    <span class='w'>int</span> x = 0, y = 0; <span class='c'>/* Координати „щура“ */</span>
+
+    <span class='c'>/* Стек що зберігає шлях пройдений щуром */</span>
+    Point *track   = malloc(<span class='w'>sizeof</span>(Point) * width * height);
+    <span class='w'>int</span> i = 0;   <span class='c'>/* Кількість елементів у стекові */</span>
+    <span class='c'>/* Доступні напрямки */</span>
+    Dir *free_dirs = malloc(<span class='w'>sizeof</span>(Dir) * 4);
+    <span class='w'>int</span> dc = 0; <span class='c'>/* кількість доступних напрямків */</span>
+
+    <span class='w'>do</span> {
+        dc = 0; <span class='c'>/* очищуємо список напрямків */</span>
+
+        <span class='c'>/* Позначаємо зайняту клітинку як відвідану */</span>
+        map[x][y].visited = 1;
+
+        <span class='c'>/* Перевіряємо 4 сторони, та заносимо вільні до списку */</span>
+        <span class='w'>if</span> (y &gt; 0          &amp;&amp; !map[x][y-1].visited)
+            free_dirs[dc++] = UP;
+        <span class='w'>if</span> (y &lt; height - 1 &amp;&amp; !map[x][y+1].visited)
+            free_dirs[dc++] = DOWN;
+        <span class='w'>if</span> (x &gt; 0          &amp;&amp; !map[x-1][y].visited)
+            free_dirs[dc++] = LEFT;
+        <span class='w'>if</span> (x &lt; width - 1  &amp;&amp; !map[x+1][y].visited)
+            free_dirs[dc++] = RIGHT;
+
+        <span class='w'>if</span> (dc == 0) {
+            <span class='c'>/* Якщо вільних шляхів немає — повертаємось на попередню клітинку */</span>
+            Point prev_point = track[i--];
+            x = prev_point.x;
+            y = prev_point.y;
+        } <span class='w'>else</span> {
+            <span class='c'>/* Інакше — переходим до нової клітинки */</span>
+
+            <span class='c'>/* Заносимо зайняту клітинку до списку, так як скоро ми її покинемо */</span>
+            track[++i] = (Point){x, y};
+
+            <span class='c'>/* Обираємо один із доступних напрямків */</span>
+            Dir random_dir = free_dirs[rand() % dc];
+            <span class='w'>switch</span> (random_dir) {
+                <span class='w'>case</span> UP:
+                    y--;
+                    map[x][y].way_down = 1;
+                    <span class='w'>break</span>;
+                <span class='w'>case</span> DOWN:
+                    map[x][y].way_down = 1;
+                    y++;
+                    <span class='w'>break</span>;
+                <span class='w'>case</span> RIGHT:
+                    map[x][y].way_right = 1;
+                    x++;
+                    <span class='w'>break</span>;
+                <span class='w'>case</span> LEFT:
+                    x--;
+                    map[x][y].way_right = 1;
+                    <span class='w'>break</span>;
+            }
+        }
+    } <span class='w'>while</span> (x != 0 || y != 0); <span class='c'>/* Якщо ми повернулись в {0,0} — завершуємо роботу */</span>
+
+    <span class='c'>/* Звільнюємо виділену пам&#39;ять */</span>
+    free(track);
+    free(free_dirs);
+}</code></pre>
+<p>Можливі напряямки я задаю як перечислення:</p>
+<pre><code><span class='w'>typedef</span> <span class='w'>enum</span>
+{
+    UP,
+    RIGHT,
+    DOWN,
+    LEFT
+} Dir;</code></pre>
+<p>Сам лабіринт — це двовимірний масив клітинок. Ці клітинки позначаються як структури:</p>
+<pre><code><span class='w'>typedef</span> <span class='w'>struct</span>
+{
+    <span class='w'>int</span> visited;
+    <span class='w'>int</span> way_down;
+    <span class='w'>int</span> way_right;
+} Cell;</code></pre>
+<p>Пройдений щуром шлях — це список точок, де він раніше знаходився. Кожна точка описана ось такою структурою:</p>
+<pre><code><span class='w'>typedef</span> <span class='w'>struct</span>
+{
+    <span class='w'>int</span> x;
+    <span class='w'>int</span> y;
+} Point;</code></pre>
+		<div class="cycle-reference"> Стаття з циклу: <a href="index.html#stvorennia-labiryntiv">Створення лабіринтів</a> </div>
+<nav>
+	<a class="btn" href="alhorytm-ellera.html">Попередня стаття</a>
+	
+</nav>
+		</main>
+		<footer>
+			<div>
+				Підтримай автора:
+				<ul>
+					<li>
+						<a href="https://privatbank.ua/sendmoney?payment=4f11f2ed6d">
+							<img class="icon" alt="privat" src="images/privat.svg">
+							ПриватБанк Sendmoney
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div>
+				Є питання чи пропозиції?
+				<ul>
+					<li>
+						<a href="mailto:sergiyhelp@gmail.com">
+							<img class="icon" alt="email" src="images/email.svg">
+							sergiyhelp@gmail.com
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div>
+				Подпишись на новини:
+				<ul>
+					<li>
+						<a href="https://t.me/prykoliakhy">
+							<img class="icon" alt="tg" src="images/telegram.svg">
+							Telegram
+						</a>
+					</li>
+				</ul>
+			</div>
+		</footer>
+	</body>
+</html>
